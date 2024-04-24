@@ -1,6 +1,8 @@
 class Solution {
 public:
 
+    /* Better to do this in BFS than DFS*/
+    
     void dfs(int n, vector<int>& edges, int i, vector<int>& dist, vector<bool>& is_vis)
     {
         is_vis[i] = true;
