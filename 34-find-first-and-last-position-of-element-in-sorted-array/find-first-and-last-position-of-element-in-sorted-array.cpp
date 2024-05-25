@@ -65,7 +65,7 @@ public:
 
     /*************************************************************************************************************************/
     
-    /* Method 2: modified binary search to calculate first and last occurence */
+    /* Method 2: modified binary search to calculate first and last occurence, this is the best method  */
 
     int first_occurence_binary_search(vector<int>& nums, int target)
     {
@@ -116,6 +116,16 @@ public:
 
         return ans;
     }
+
+
+    /* Very Important Note
+    
+        Q. Find the count the occurence of a number in sorted array with duplicates. 
+
+        Ans : To solve this,  simply use above method and find first and last occurence of that particular number. 
+               then do last_occurence - first_occurence + 1 will give the final answer.    
+    
+     */ 
 
     /*************************************************************************************************************************/
 
