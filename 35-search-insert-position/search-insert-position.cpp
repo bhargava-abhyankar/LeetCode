@@ -1,6 +1,7 @@
 class Solution {
 public:
 
+    /*
     void binary_search(vector<int>&nums, int left, int right, int target, int &ans)
     {
         if(left > right) {
@@ -33,4 +34,31 @@ public:
     
         return ans;
     }
+    */
+
+    /* lower bound approach */
+
+    int searchInsert(vector<int>& nums, int target) 
+    {
+        int ans = nums.size();
+        int start = 0, end = nums.size()-1;
+
+        if(target < nums[0]) {
+            return 0;
+        }
+
+        while(start <= end) {
+            int mid = (start + end)/2;
+
+            if(nums[mid] >= target) {
+                ans = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+
 };
