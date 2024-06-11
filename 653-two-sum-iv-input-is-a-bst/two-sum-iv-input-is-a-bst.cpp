@@ -93,7 +93,7 @@ public:
             return;
         }
 
-        inorder_traversal(root->left, k, hash_table, ans);
+        
 
         if(hash_table.find(k - root->val) != hash_table.end()) {
             ans = true;
@@ -101,7 +101,7 @@ public:
         } else {
             hash_table.insert(root->val);
         }
-
+        inorder_traversal(root->left, k, hash_table, ans);
         inorder_traversal(root->right, k, hash_table, ans);
     } 
 
