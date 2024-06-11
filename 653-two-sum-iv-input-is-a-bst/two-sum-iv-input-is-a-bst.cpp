@@ -11,6 +11,12 @@
  */
 class Solution {
 public:
+
+    /*method 1:  
+        do inorder traversal and for every node, do target - node value and search
+        in tree. Note that while searching, u need to ignore the cur node value. so
+        added the check
+
     void find(TreeNode* root, TreeNode* orig, int rem, bool &ans)
     {
         if(root == NULL)
@@ -42,5 +48,39 @@ public:
         bool ans = false;
         in_order_traverse(root, root, k, ans);
         return ans;
+    }
+    */
+
+    /* method 2 :  two pointer method */
+
+    void in_order_traverse(TreeNode* cur, vector<int> &nums)
+    {
+        if(cur == NULL) {
+            return;
+        }
+
+        in_order_traverse(cur->left, nums);
+        nums.push_back(cur->val);
+        in_order_traverse(cur->right, nums);
+
+    }
+
+    bool findTarget(TreeNode* root, int k) 
+    {
+        vector<int> nums;
+        in_order_traverse(root, nums);
+
+        int i = 0, j = nums.size()-1;
+
+        while(i < j) {
+            if((nums[i] + nums[j]) == k) {
+                return true;
+            } else if (((nums[i] + nums[j]) > k)) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return false;
     }
 };
