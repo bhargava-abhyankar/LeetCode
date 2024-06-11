@@ -53,6 +53,7 @@ public:
 
     /* method 2 :  two pointer method */
 
+    /*
     void in_order_traverse(TreeNode* cur, vector<int> &nums)
     {
         if(cur == NULL) {
@@ -82,5 +83,33 @@ public:
             }
         }
         return false;
+    }
+
+    */
+
+    void inorder_traversal(TreeNode* root, int k, unordered_set<int> &hash_table, bool &ans)
+    {
+        if(root == NULL) {
+            return;
+        }
+
+        inorder_traversal(root->left, k, hash_table, ans);
+
+        if(hash_table.find(k - root->val) != hash_table.end()) {
+            ans = true;
+            return;
+        } else {
+            hash_table.insert(root->val);
+        }
+
+        inorder_traversal(root->right, k, hash_table, ans);
+    } 
+
+    bool findTarget(TreeNode* root, int k) 
+    {
+        bool ans = false;
+        unordered_set<int> hash_table;
+        inorder_traversal(root, k, hash_table, ans);
+        return ans;
     }
 };
