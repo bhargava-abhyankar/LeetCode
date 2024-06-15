@@ -1,5 +1,11 @@
 class Solution {
 public:
+
+    /* This problem is same as leetcode problem number 77.Combinations 
+       In that problem k or combination length is given, to find the subset
+       of given array, combination for all combination length from 0 to array size 
+       need to be calculated */
+
     void combination(vector<int>& nums, int cur, vector<int> &cur_ans, vector<vector<int>> &ans, int k)
     {
         if(k == cur_ans.size()) {
