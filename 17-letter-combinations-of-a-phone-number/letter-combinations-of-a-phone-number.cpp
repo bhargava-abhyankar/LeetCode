@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    void backtracking(map<char, string> &table, string digits, int cur_digit, string &ans, vector<string> &final_ans)
+    void backtracking(unordered_map<char, string> &table, string digits, int cur_digit, string &ans, vector<string> &final_ans)
     {
         if(digits.length() == ans.length()) {
             final_ans.push_back(ans);
@@ -29,7 +29,7 @@ public:
             return ans;
         }
 
-        map<char, string> table;
+        unordered_map<char, string> table;
         table.insert({'2', "abc"});
         table.insert({'3', "def"});
         table.insert({'4', "ghi"});
