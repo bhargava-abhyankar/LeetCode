@@ -1,6 +1,13 @@
 class Solution {
 public:
 
+    /*First approach was done with intution. due to lot of negative cases, could not make this logic to work
+      Dont take this complex approach. Simple approach is, first iterate and look for white spaces and skip them
+      now u are first valid position, in whole string, + , - sign can come at begining only. check for it, if there
+      is note it increment index. no sign may be there.. dont update index. now check until the string is numeric and
+      compute value */
+
+
     /*
     int myAtoi(string s) 
     {
@@ -85,30 +92,5 @@ public:
             return (int)sum;
         }
     }
-
-    /*
-    int myAtoi(string s) {
-        int len = s.size();
-        double num = 0;
-        int i=0;
-        while(s[i] == ' '){
-            i++;
-        }
-        bool positive = s[i] == '+';
-        bool negative = s[i] == '-';
-        positive == true ? i++ : i;
-        negative == true ? i++ : i;
-        while(i < len && s[i] >= '0' && s[i] <= '9'){
-            num = num*10 + (s[i]-'0');
-            i++;
-        }
-        num = negative ? -num : num;
-        cout<<num<<endl;
-        num = (num > INT_MAX) ? INT_MAX : num;
-        num = (num < INT_MIN) ? INT_MIN : num;
-        cout<<num<<endl;
-        return int(num);
-    }
-    */
 
 };
