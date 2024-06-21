@@ -11,6 +11,9 @@
 class Solution {
 public:
 
+    /* First traverse the list using two pointer. then slow pointer will be in middle. cut it from the list. take other half list
+       and reverse it. then again use two pointer and merge them into single list */
+
     void print_list(ListNode* head)
     {
         while(head) {
