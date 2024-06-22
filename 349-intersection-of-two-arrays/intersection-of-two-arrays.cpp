@@ -1,5 +1,6 @@
 class Solution {
 public:
+    /*
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
     {
         unordered_map<int, int> hash;
@@ -18,6 +19,26 @@ public:
                     ans.push_back(t);
                     hash[t] = 1;
                 }
+            }
+        }
+
+        return ans;
+    }
+    */
+
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
+    {
+        vector<int> ans;
+        unordered_set<int> s1(nums1.begin(), nums1.end());
+        unordered_set<int> s2(nums2.begin(), nums2.end());
+
+        /*Please note: here u are iterating over set, not orginial vector. Basically
+          both set will have unique numbers.  then u iterate over one set and compare it with
+          other set. if found put it to ans */
+          
+        for(const auto &num:s1) {
+            if(s2.find(num) != s2.end()) {
+                ans.push_back(num);
             }
         }
 
