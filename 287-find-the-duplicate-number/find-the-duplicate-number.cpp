@@ -1,6 +1,7 @@
 class Solution {
 public:
 
+    /*
     int findDuplicate(vector<int>& nums) 
     {
         sort(nums.begin(), nums.end());
@@ -13,10 +14,10 @@ public:
 
         return -1;
     }
-
+    */
 
     /*Similar to cycle detection, fast and slow pointer. 0(n) solution. */
-    /*
+
     int findDuplicate(vector<int>& nums) 
     {
         int slow = nums[0], fast = nums[0];
@@ -36,5 +37,5 @@ public:
 
         return slow;
     }
-    */
+
 };
