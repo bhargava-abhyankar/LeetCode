@@ -10,6 +10,8 @@
  */
 class Solution {
 public:
+
+    /*
     ListNode* deleteDuplicates(ListNode* head) 
     {
         if(head == NULL || head->next == NULL) {
@@ -19,6 +21,25 @@ public:
         ListNode* i = head, *j = head;
 
         while(j) {
+            while ( j && j->val == i->val) {
+                j = j->next;
+            } 
+            i->next = j;
+            i = j;
+        }
+        return head;
+    }
+    */
+
+    ListNode* deleteDuplicates(ListNode* head) 
+    {
+        if(head == NULL || head->next == NULL) {
+            return head;
+        }
+
+        ListNode* i = head, *j = head;
+
+        while(i) {
             while ( j && j->val == i->val) {
                 j = j->next;
             } 
