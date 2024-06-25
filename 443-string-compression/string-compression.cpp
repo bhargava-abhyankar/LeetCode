@@ -31,8 +31,9 @@ public:
     }
     */
 
-     /* Use three pointer. one to update the result after compression. for comparing if its a repeat use usual two pointer */
+    /* Use three pointer. one to update the result after compression. for comparing if its a repeat use usual two pointer */
 
+    /*
     int compress(vector<char>& chars) 
     {
         int i = 0, j = 0, compressed_length = 0;
@@ -59,10 +60,36 @@ public:
 
         return compressed_length;
     }
+    */
 
     /*use only two pointer, note how to find repeat with single pointer */
 
+    int compress(vector<char>& chars) 
+    {
+        int i = 0, j = 0;
 
+        while(j < chars.size()) {
+            int count = 0;
+            
+            char ch = chars[j];
 
+            while(j < chars.size() && ch == chars[j]) {
+                count++;
+                j++;
+            }
+
+            chars[i] = ch;
+            i++;
+
+            if(count > 1) {
+                for(char &ch: to_string(count)) {
+                    chars[i] = ch;
+                    i++;
+                }
+            }
+        }
+
+        return i;        
+    }
 
 };
