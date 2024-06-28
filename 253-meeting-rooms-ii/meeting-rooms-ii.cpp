@@ -1,6 +1,10 @@
 class Solution {
 public:
 
+    /* Idea is, for every meeting, we should check, what is first meeting that will be finishing. first meeting means the meeting with least end time. 
+       if the current meeting is colliding with first finishing meeting, we need new room, so increase the meeting room count.
+       if its not colliding then, we can use same room. just pop the last finished meeting and insert the current */
+       
     static bool comp(vector<int> &a, vector<int> &b)
     {
         return(a[0] < b[0]);
