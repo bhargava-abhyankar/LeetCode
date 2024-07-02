@@ -1,21 +1,18 @@
 class Solution {
 public:
 
-    vector<int> parent;
-    vector<int> rank;
-
-    int find(int num)
+    int find(int num, vector<int> &parent)
     {
         if(num == parent[num]) {
             return num;
         }
-        return (parent[num] = find(parent[num]));
+        return (parent[num] = find(parent[num], parent));
     }
 
-    void Union(int x, int y)
+    void Union(int x, int y, vector<int> &parent, vector<int> &rank)
     {
-        int x_parent = find(x);
-        int y_parent = find(y);
+        int x_parent = find(x, parent);
+        int y_parent = find(y, parent);
 
         if(rank[x_parent] > rank[y_parent]) {
             parent[y_parent] = x_parent;
@@ -38,18 +35,19 @@ public:
     int earliestAcq(vector<vector<int>>& logs, int n) 
     {
         int components = n;
-        rank.resize(n, 1);
-        parent.resize(n, 0);
+        vector<int> parent(n, 0);
+        vector<int> rank(n, 1);
 
         for(int i = 0; i < n; i++) {
             parent[i] = i;
         }
+
         sort(logs.begin(), logs.end(), comp);
 
         for(int i = 0; i < logs.size(); i++) {
 
-            if(find(logs[i][1]) != find(logs[i][2])) {
-                Union(logs[i][1], logs[i][2]);
+            if(find(logs[i][1], parent) != find(logs[i][2], parent)) {
+                Union(logs[i][1], logs[i][2], parent, rank);
                 n--;
             }
 
