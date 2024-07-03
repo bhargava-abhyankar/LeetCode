@@ -1,6 +1,8 @@
 class Logger {
 public:
     
+    /* My Approach.
+
     unordered_map<string, int> hash;
 
     Logger() {
@@ -16,12 +18,27 @@ public:
             if(timestamp < cur) {
                 return false;
             } else {
-                hash[message] = timestamp + 10;
+                hash[message] = timestamp + 10;          // initially missed to add 10 here.
                 return true;
             }
         }
 
         return true;
+    }
+
+    */
+
+    /* From Solution */
+
+    unordered_map<string, int> mp;
+    Logger() {}
+    
+    bool shouldPrintMessage(int timestamp, string message) {
+        if(mp.find(message) == mp.end() || timestamp - mp[message] >= 10){
+            mp[message] = timestamp;
+            return true;
+        }
+        return false;
     }
 };
 
