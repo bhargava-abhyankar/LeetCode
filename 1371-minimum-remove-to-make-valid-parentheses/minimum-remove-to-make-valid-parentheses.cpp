@@ -1,5 +1,8 @@
 class Solution {
 public:
+
+    /* First approach */
+
     string minRemoveToMakeValid(string s) 
     {
         string ans;
@@ -25,4 +28,6 @@ public:
         reverse(ans.begin(), ans.end());
         return ans;
     }
+
+    
 };
