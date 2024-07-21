@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    /* Approach: 
+    /* Approach: simple sliding. O(n)
 
        Create three integer variables left, right and sumOfCurrentWindow. The variables left and right form a subarray by pointing to 
        the starting and ending indices  of the current subarray (or window), and sumOfCurrentWindow stores the sum of this window. 
@@ -14,7 +14,7 @@ public:
        This step is repeated in an inner loop as long as sumOfCurrentWindow >= target. The current window's sum is now smaller than target. 
        We need to add more elements to it. As a result, right is incremented by 1. Return res.
 
-    */
+    
 
     int minSubArrayLen(int target, vector<int>& nums) 
     {
@@ -31,6 +31,44 @@ public:
             right++;
         }
         return(ans == INT_MAX ? 0 : ans);
+    }
+
+    */
+
+    bool is_possible(vector<int>& nums, int target, int size)
+    {
+        int i = 0, j = 0, sum = 0, max_val = INT_MIN;
+
+        while(j < nums.size()) {
+            sum = sum + nums[j];
+
+            if (size == (j - i + 1)) {
+                max_val = max(max_val, sum);
+                sum = sum - nums[i];
+                i++;
+            }
+            j++;
+        }
+
+        return(max_val >= target ? true:false);
+    }
+
+    int minSubArrayLen(int target, vector<int>& nums) 
+    {
+        int start = 0, end = nums.size(), ans = 0;
+
+        while(start <= end) {
+            int mid = (start + end) / 2;
+
+            if(is_possible(nums, target, mid)) {
+                ans = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return ans;
     }
 
 };
