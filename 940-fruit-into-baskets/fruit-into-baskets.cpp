@@ -1,80 +1,35 @@
 class Solution {
 public:
-    /*
+
+    /* first intution. dint work because of this case. [3,3,3,1,2,1,1,2,3,3,4]
+    
     int totalFruit(vector<int>& fruits) 
     {
-        unordered_map<int, int> hash;
+        unordered_set<int> hash;
 
         int left = 0, right = 0, ans = 0;
 
         while(right < fruits.size()) {
 
             if(hash.find(fruits[right]) == hash.end()) {
-                hash.insert({fruits[right], 1});
+                hash.insert(fruits[right]);
                 right++;
 
                 if(hash.size() > 2) {
-                    hash[fruits[left]]--;
-                    if(hash[fruits[left]] == 0) {
-                        auto itr = hash.find(fruits[left]);
-                        hash.erase(itr);
-                    }
+                    auto itr = hash.find(fruits[left]);
+                    hash.erase(itr);
+                    left++;
                 }
             } else {
-                hash[fruits[right]]++;
                 right++;
             }
-
             ans = max(ans, right-left);
         }
 
         return ans;
     }
+
     */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     int totalFruit(vector<int>& fruits) 
     {
@@ -94,7 +49,7 @@ public:
             }
             ans = max(ans, right-left);
         }
-        
+
         return ans;
     }
 };
