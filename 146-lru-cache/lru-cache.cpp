@@ -143,6 +143,9 @@ public:
     }
     */
 
+    /* using standard functions */
+
+    /*
     int capacity;
     list<pair<int, int>> lru;
     unordered_map<int, list<pair<int, int>>::iterator> hash;
@@ -185,6 +188,80 @@ public:
             auto it = hash.find(lru.rbegin()->first);
             hash.erase(it);
             lru.pop_back();
+        }
+    }
+    */
+    
+    struct ListNode {
+        int key;
+        int val;
+        ListNode *next;
+        ListNode *prev;
+        ListNode(): key(0), val(0), next(NULL), prev(NULL) {}
+        ListNode(int k, int value): key(k), val(value), next(NULL), prev(NULL) {}
+    };
+    
+    int max_capacity;
+    ListNode *head =  new ListNode(-1, -1);
+    ListNode *tail = new ListNode(-1, -1);
+    unordered_map<int, ListNode*> hash;
+
+    LRUCache(int capacity) 
+    {
+        max_capacity = capacity;
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    void add_node(ListNode *node)
+    {
+        ListNode *real_prev = tail->prev;
+        tail->prev = node;
+        node->next = tail;
+        node->prev = real_prev;
+        real_prev->next = node;
+    }
+
+    void delete_node(ListNode *node)
+    {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+
+    int get(int key) 
+    {
+        auto itr = hash.find(key);
+
+        if(itr == hash.end()) {
+            return -1;
+        }
+
+        ListNode *node = hash[key];
+        delete_node(node);
+        add_node(node);
+        return node->val;
+    }
+
+    void put(int key, int value) 
+    {
+        auto itr = hash.find(key);
+
+        if(itr != hash.end()) {
+            ListNode *old_node = hash[key];
+            delete_node(old_node);
+            delete old_node;
+        }
+
+        ListNode *node = new ListNode(key, value);
+        hash[key] = node;
+        add_node(node);
+
+        if(hash.size() > max_capacity) {
+            ListNode *to_delete = head->next;
+            hash.erase(to_delete->key);
+            //hash.erase(hash.find(to_delete->key));
+            delete_node(to_delete);
+            delete to_delete;
         }
     }
 };
