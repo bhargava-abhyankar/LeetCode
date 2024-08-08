@@ -16,6 +16,7 @@ public:
                  get: Check if key is present, if present, delete the node, remove hash entry, add the node and update the hash entry.
     */
     
+    /*
     struct ListNode {
         int val;
         int key;
@@ -138,6 +139,52 @@ public:
                 hash_table.insert({key, cur});
                 cur_capacity = cur_capacity + 1;
             }
+        }
+    }
+    */
+
+    int capacity;
+    list<pair<int, int>> lru;
+    unordered_map<int, list<pair<int, int>>::iterator> hash;
+
+    LRUCache(int capacity) {
+        this->capacity = capacity;
+    }
+
+    int get(int key) 
+    {
+        auto itr = hash.find(key);
+
+        if(itr == hash.end()) {
+            return -1;
+        }
+
+        int value = itr->second->second;
+        lru.erase(itr->second);
+        lru.push_front({key, value});
+
+        hash.erase(itr);
+        hash[key] = lru.begin();
+
+        return value;
+    }
+    
+    void put(int key, int value) 
+    {
+        auto itr = hash.find(key);
+
+        if(itr != hash.end()) {
+            lru.erase(itr->second);
+            hash.erase(itr);
+        }
+
+        lru.push_front({key, value});
+        hash[key] = lru.begin();
+
+        if(lru.size() > capacity) {
+            auto it = hash.find(lru.rbegin()->first);
+            hash.erase(it);
+            lru.pop_back();
         }
     }
 };
