@@ -258,7 +258,6 @@ public:
 
         if(hash.size() > max_capacity) {
             ListNode *to_delete = head->next;
-            //hash.erase(to_delete->key);
             hash.erase(hash.find(to_delete->key));
             delete_node(to_delete);
             delete to_delete;
