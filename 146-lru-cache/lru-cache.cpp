@@ -200,7 +200,7 @@ public:
         ListNode(): key(0), val(0), next(NULL), prev(NULL) {}
         ListNode(int k, int value): key(k), val(value), next(NULL), prev(NULL) {}
     };
-    
+
     int max_capacity;
     ListNode *head =  new ListNode(-1, -1);
     ListNode *tail = new ListNode(-1, -1);
@@ -258,8 +258,8 @@ public:
 
         if(hash.size() > max_capacity) {
             ListNode *to_delete = head->next;
-            hash.erase(to_delete->key);
-            //hash.erase(hash.find(to_delete->key));
+            //hash.erase(to_delete->key);
+            hash.erase(hash.find(to_delete->key));
             delete_node(to_delete);
             delete to_delete;
         }
