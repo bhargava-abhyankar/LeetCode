@@ -10,6 +10,9 @@
  */
 class Solution {
 public:
+
+    /* Iterative
+
     ListNode* reverseList(ListNode* head) 
     {
         if(!head)
@@ -26,4 +29,26 @@ public:
 
         return prev;
     }
+
+    */
+
+    void reverse_recursive(ListNode* prev, ListNode* cur, ListNode** head)
+    {
+        if(cur == NULL) {
+            *head = prev;
+            return;
+        }
+
+        ListNode *next = cur->next;
+        cur->next = prev;
+
+        reverse_recursive(cur, next, head);
+    }
+
+    ListNode* reverseList(ListNode* head) 
+    {
+        reverse_recursive(NULL, head, &head);
+        return head;
+    }
+
 };
