@@ -39,12 +39,24 @@ public:
             return true;
         }
 
+        /*
         ListNode* slow = head, *fast = head->next;
 
         while(fast && fast->next) {
             slow = slow->next;
             fast = fast->next->next;
         }
+        */
+
+        ListNode *dummy = new ListNode(1000000, head);
+        ListNode *slow = dummy, *fast = dummy;
+
+        while(fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        delete(dummy);
 
         ListNode* second_half = slow->next;
         slow->next = NULL;
@@ -58,6 +70,10 @@ public:
             fast = fast->next;
         }
 
+        /*Note this condition, if both the list will be exausted its palindrome, or if the first list has one node and other list
+          is exausted, then also its palindrome becasue, in case of odd number of nodes, first list will be one node bigger.
+        ex : gadag , list1 gad  list2 ga , eventhough d is there, its a palindrome */
+        
         if((slow == NULL && fast == NULL) || (slow->next == NULL && fast == NULL)) 
             return true;
         else
