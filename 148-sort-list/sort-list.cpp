@@ -98,15 +98,6 @@ public:
 		    return head;
 	    }
 	
-        /*
-	    ListNode* slow = head, *fast = head->next;
-	
-	    if(fast && fast->next) {
-		    slow = slow->next;
-		    fast = fast->next->next;
-	    }
-        */
-
         ListNode *dummy = new ListNode(1000000, head);
         ListNode *slow = dummy, *fast = dummy;
 
@@ -115,7 +106,7 @@ public:
             fast = fast->next->next;
         }
         delete dummy;
-        
+
 	    ListNode *list1 = head;
 	    ListNode *list2 = slow->next;
 	    slow->next = NULL;
