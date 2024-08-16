@@ -39,15 +39,6 @@ public:
             return true;
         }
 
-        /*
-        ListNode* slow = head, *fast = head->next;
-
-        while(fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
-        }
-        */
-
         ListNode *dummy = new ListNode(1000000, head);
         ListNode *slow = dummy, *fast = dummy;
 
@@ -55,7 +46,7 @@ public:
             slow = slow->next;
             fast = fast->next->next;
         }
-        
+
         delete(dummy);
 
         ListNode* second_half = slow->next;
@@ -63,7 +54,6 @@ public:
 
         second_half = reverse_list(second_half);
         
-
         slow = head, fast = second_half;
         while(slow && fast && slow->val == fast->val) {
             slow = slow->next;
