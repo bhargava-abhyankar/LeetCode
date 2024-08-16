@@ -49,7 +49,9 @@ public:
         ListNode *dummy = new ListNode(-1, head);
         ListNode *slow = dummy, *fast = dummy;
 
-        for(int i = 0; i <=n; i++) {
+        /* adding condition as <= n because, both pointers are at dummy node at begining.*/
+        
+        for(int i = 0; i <=n; i++) { 
             fast = fast->next;
         }
 
