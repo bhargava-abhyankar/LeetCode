@@ -68,48 +68,59 @@ public:
     */
 
     ListNode* mergeSort(ListNode* l1, ListNode*l2)
-{
-	ListNode* dummy = new ListNode(0);
-	ListNode *traverse = dummy;
+    {
+	    ListNode* dummy = new ListNode(0);
+	    ListNode *traverse = dummy;
 
-	while(l1 && l2) {
-		if(l1->val < l2->val) {
-			traverse->next = l1;
-			l1 = l1->next;
-		} else {
-			traverse->next = l2;
-			l2 = l2->next;
-		}
-		traverse = traverse->next;
-	}
+	    while(l1 && l2) {
+		    if(l1->val < l2->val) {
+			    traverse->next = l1;
+			    l1 = l1->next;
+		    } else {
+			    traverse->next = l2;
+			    l2 = l2->next;
+		    }
+		    traverse = traverse->next;
+	    }
 	
-	if(l1) {
-		traverse->next = l1;
-	} else {
-		traverse->next = l2;
-	}
+	    if(l1) {
+		    traverse->next = l1;
+	    } else {
+		    traverse->next = l2;
+	    }
 	
-	return(dummy->next);
-}
+	    return(dummy->next);
+    }
 
-ListNode* sortList(ListNode* head)
-{
-	if(head == NULL || head->next == NULL) {
-		return head;
-	}
+    ListNode* sortList(ListNode* head)
+    {
+	    if(head == NULL || head->next == NULL) {
+		    return head;
+	    }
 	
-	ListNode* slow = head, *fast = head->next;
+        /*
+	    ListNode* slow = head, *fast = head->next;
 	
-	if(fast && fast->next) {
-		slow = slow->next;
-		fast = fast->next->next;
-	}
+	    if(fast && fast->next) {
+		    slow = slow->next;
+		    fast = fast->next->next;
+	    }
+        */
+
+        ListNode *dummy = new ListNode(1000000, head);
+        ListNode *slow = dummy, *fast = dummy;
+
+        while(fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        delete dummy;
+        
+	    ListNode *list1 = head;
+	    ListNode *list2 = slow->next;
+	    slow->next = NULL;
 	
-	ListNode *list1 = head;
-	ListNode *list2 = slow->next;
-	slow->next = NULL;
-	
-	head = mergeSort(sortList(list1), sortList(list2));
-	return head;
-}
+	    head = mergeSort(sortList(list1), sortList(list2));
+	    return head;
+    }
 };
