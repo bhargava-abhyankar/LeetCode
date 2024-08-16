@@ -89,7 +89,9 @@ public:
 		    traverse->next = l2;
 	    }
 	
-	    return(dummy->next);
+        traverse = dummy->next;
+	    delete dummy;
+        return traverse;
     }
 
     ListNode* sortList(ListNode* head)
