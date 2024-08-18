@@ -65,12 +65,8 @@ public:
 
         if(list1) {
             traverse->next = list1;
-            traverse = traverse->next;
-        }
-
-        if(list2) {
+        } else {
             traverse->next = list2;
-            traverse = traverse->next;
         }
 
         ListNode *head = dummy->next;
