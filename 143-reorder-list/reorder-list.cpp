@@ -76,7 +76,9 @@ public:
             slow = slow->next;
             fast = fast->next->next;
         }
-        
+
+        delete dummy;
+
         ListNode *list_two_head = reverse_list(slow->next);
         slow->next = NULL;
         
