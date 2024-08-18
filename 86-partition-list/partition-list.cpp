@@ -37,7 +37,8 @@ public:
                         After traversing the entire list, append the after list to the before list to form the partitioned linked list.
 
         Result:
-                        Return the next node of the before dummy node as the new head of the partitioned list.
+                        the next node of the less_than list will have the head of result list. Update the head with it. delete the dummy nodes
+                        created and return the head.
     */
 
     ListNode* partition(ListNode* head, int x) 
