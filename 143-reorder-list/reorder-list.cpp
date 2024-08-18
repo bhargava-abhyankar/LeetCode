@@ -26,7 +26,7 @@ public:
     {
         ListNode *prev = NULL, *cur = head, *next = head;
 
-        while(cur) {
+        while(next) {
             next = next->next;
             cur->next = prev;
             prev = cur;
@@ -60,9 +60,19 @@ public:
         if(head == NULL || head->next == NULL)
             return;
 
+        /*
         ListNode *slow = head, *fast = head->next;
 
         while(slow && slow->next && fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        */
+
+        ListNode *dummy = new ListNode(-1, head);
+        ListNode *slow = dummy, *fast = dummy;
+
+        while(fast && fast->next) {
             slow = slow->next;
             fast = fast->next->next;
         }
