@@ -26,8 +26,10 @@ public:
 
     Step-by-step Breakdown:
         Initialization:
-                        Create two dummy nodes: before and after.
-                        Initialize two pointers before_curr and after_curr at the dummy nodes.
+                        Create two dummy nodes: less_than_list and greater_than_list.
+                        Initialize two pointers less_than_traverse and greater_than_traverse at the dummy nodes.
+                        Initialize a pointer traverse to head of given list.
+        
         Traversal & Partition:
                         Traverse the linked list with the given head.
                         For each node, if its value is less than x, attach it to the before list. Otherwise, attach it to the after list.
@@ -40,33 +42,31 @@ public:
 
     ListNode* partition(ListNode* head, int x) 
     {
-        if(head == NULL) {
-            return NULL;
+        if(!head || head->next == NULL) {
+            return head;
         }
 
-        ListNode* before_dummy = new ListNode(0);
-        ListNode* after_dummy = new ListNode(0);
+        ListNode *less_than_list = new ListNode(-1000, NULL);
+        ListNode *greater_than_list = new ListNode(1001, NULL);
+        ListNode *less_than_traverse = less_than_list, *greater_than_traverse = greater_than_list, *traverse = head;
 
-        ListNode *before_traverse = before_dummy, *after_traverse = after_dummy, *origin = head;
-
-        while(origin) {
-            if(origin->val < x) {
-
-                before_traverse->next = origin;
-                before_traverse = before_traverse->next;
-
-            } else if (origin->val >= x) {
-
-                after_traverse->next = origin;
-                after_traverse = after_traverse->next;
-
+        while(traverse) {
+            if(traverse->val < x) {
+                less_than_traverse->next = traverse;
+                less_than_traverse = less_than_traverse->next;
+            } else {
+                greater_than_traverse->next = traverse;
+                greater_than_traverse = greater_than_traverse->next;
             }
 
-            origin = origin->next;
+            traverse = traverse->next;
         }
 
-        before_traverse->next = after_dummy->next;
-        after_traverse->next = NULL;
-        return (before_dummy->next);
+        less_than_traverse->next = greater_than_list->next;
+        greater_than_traverse->next = NULL;
+        head = less_than_list->next;
+        delete less_than_list;
+        delete greater_than_list;
+        return head;
     }
 };
