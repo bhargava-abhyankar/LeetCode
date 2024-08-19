@@ -31,6 +31,7 @@ public:
     }
     */
 
+    /*
     ListNode* deleteDuplicates(ListNode* head) 
     {
         if(head == NULL || head->next == NULL) {
@@ -48,4 +49,23 @@ public:
         }
         return head;
     }
+    */
+
+    ListNode* deleteDuplicates(ListNode* head)
+    {
+        ListNode *traverse = head;
+
+        while(traverse && traverse->next) {
+            if(traverse->val == traverse->next->val) {
+                ListNode *to_delete = traverse->next;
+                traverse->next = traverse->next->next;
+                delete(to_delete);
+            } else {
+                traverse = traverse->next;
+            }
+        }
+
+        return head;
+    }
+
 };
