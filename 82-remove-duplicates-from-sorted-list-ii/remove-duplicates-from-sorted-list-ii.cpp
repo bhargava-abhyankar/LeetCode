@@ -11,36 +11,31 @@
 class Solution {
 public:
 
-    /* Use dummy node, initialize cur to head and next to cur->next. maintain a flag to see for duplicity */
-    
     ListNode* deleteDuplicates(ListNode* head) 
     {
-        if(head == NULL || head->next == NULL) {
-            return head;
-        }
+        ListNode *dummy = new ListNode(-1000, head);
+        ListNode *traverse = head, *prev = dummy;
 
-        ListNode* dummy = new ListNode(0);
-        ListNode* prev = dummy, *cur = head;
-        dummy->next = head;
+        while(traverse && traverse->next) {
+            if(traverse->val == traverse->next->val) {
+                int to_check = traverse->val;
 
-        while(cur) 
-        {
-            ListNode *next = cur->next;
-            bool is_duplicate = false;
+                while(traverse && to_check == traverse->val) {
+                    ListNode *to_delete = traverse;
+                    traverse = traverse->next;
+                    delete(to_delete);
+                }
 
-            while(next && cur->val == next->val) {
-                is_duplicate = true;
-                next = next->next;
-            }
+                prev->next = traverse;
 
-            if(is_duplicate) {
-                prev->next = next;
             } else {
-                prev = cur;
+                prev = prev->next;
+                traverse = traverse->next;
             }
-            cur = next;   
         }
 
-        return dummy->next;
+        head = dummy->next;
+        delete(dummy);
+        return head;
     }
 };
