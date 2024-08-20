@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    /* method 1: time O(n) and space O(n) */
+    /* method 1: time O(n) and space O(n) 
 
     ListNode* removeNodes(ListNode* head) 
     {
@@ -25,7 +25,7 @@ public:
         }
 
         int maximum = INT_MIN;
-        
+
         while(!st.empty()) {
             auto cur = st.top().second;
             auto previous = st.top().first;
@@ -45,9 +45,11 @@ public:
         return head;
     }
 
-    /* method 2: time O(n) and space O(1). 3 pass solution
+    */
 
-    ListNode* removeNodes(ListNode* head) 
+    /* method 2: time O(n) and space O(1). 3 pass solution */
+
+    ListNode* reverse_list(ListNode *head)
     {
         ListNode *prev = NULL, *cur = head, *next = head;
 
@@ -58,9 +60,15 @@ public:
             cur = next;
         }
 
+        return prev;
+    }
+
+    ListNode* removeNodes(ListNode* head) 
+    {
         int max = INT_MIN;
-        head = prev;
-        ListNode *traverse = prev, *traverse_prev = prev;
+        head = reverse_list(head);
+        ListNode *dummy = new ListNode(-1, head);
+        ListNode *traverse = head, *traverse_prev = dummy;
 
         while(traverse) {
             if(traverse->val < max) {
@@ -75,18 +83,8 @@ public:
             }
         }
 
-        prev = NULL, cur = head, next = head;
-
-        while(next) {
-            next = next->next;
-            cur->next = prev;
-            prev = cur;
-            cur = next;
-        }
-
-        head = prev;
+        head = reverse_list(dummy->next);
+        delete(dummy);
         return head;
     }
-
-    */
 };
