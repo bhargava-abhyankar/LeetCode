@@ -1,3 +1,43 @@
+ /* Method 1 */
+
+class BrowserHistory {
+public:
+    stack<string> history;
+    stack<string> future;
+
+    BrowserHistory(string homepage) 
+    {
+        history.push(homepage);
+        future = stack<string>();
+    }
+    
+    void visit(string url) 
+    {
+        history.push(url);
+        future = stack<string>();
+    }
+    
+    string back(int steps) 
+    {
+        while(history.size() > 1 && steps > 0) {     // history.size() > 1, this is ensure we dont move go back than homepage. !history.empty() will not work.
+            future.push(history.top());
+            history.pop();
+            steps--;
+        }
+        return history.top();
+    }
+    
+    string forward(int steps) 
+    {
+        while(!future.empty() && steps > 0) {
+            history.push(future.top());
+            future.pop();
+            steps--;
+        }
+        return history.top();
+    }
+};
+
 
 /* Method 2:
 
@@ -58,7 +98,7 @@ public:
 
 */
 
-/* Method 3*/
+/* Method 3
 
 class BrowserHistory {
 public:
@@ -98,7 +138,10 @@ public:
         (current + steps) < last ? (current = current + steps): (current = last);
         return history[current];
     }
+
 };
+
+*/
 
 
 
