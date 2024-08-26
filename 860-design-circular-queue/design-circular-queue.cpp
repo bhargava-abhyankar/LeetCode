@@ -1,3 +1,4 @@
+/*
 class MyCircularQueue {
 public:
     int *my_queue;
@@ -69,6 +70,100 @@ public:
             return false;
     }
 };
+
+*/
+
+struct MyListNode {
+public:
+    int val;
+    MyListNode *next;
+    MyListNode *prev;
+    MyListNode(): val(0), next(NULL), prev(NULL) {}
+    MyListNode(int value): val(value), next(NULL), prev(NULL) {}
+    MyListNode(int value, MyListNode* n, MyListNode *p): val(value), next(n), prev(p) {}  
+};
+
+class MyCircularQueue {
+public:
+    MyListNode *head;
+    MyListNode *tail;
+    int size;
+    int count;
+
+    MyCircularQueue(int k) 
+    {
+        head = new MyListNode(-2, NULL, NULL);
+        tail = new MyListNode(-1, NULL, head);
+        head->next = tail;
+        size = k;
+        count = 0;
+    }
+    
+    bool enQueue(int value) 
+    {
+        if(isFull()) {
+            return false;
+        } else {
+            MyListNode* newNode = new MyListNode(value);
+            newNode->prev = tail->prev;
+            newNode->next = tail;
+            tail->prev->next = newNode;
+            tail->prev = newNode;
+            count++;
+            return true;
+        }
+    }
+    
+    bool deQueue()
+    {
+        if(isEmpty()) {
+            return false;
+        } else {
+            MyListNode *to_delete = head->next;
+            head->next = to_delete->next;
+            to_delete->next->prev = head;
+            delete(to_delete);
+            count--;
+            return true;
+        }
+    }
+    
+    int Front() 
+    {
+        if(isEmpty())
+            return -1;
+        
+        return(head->next->val);
+    }
+    
+    int Rear() 
+    {
+        if(isEmpty())
+            return -1;
+    
+        return (tail->prev->val);
+    }
+    
+    bool isEmpty() 
+    {
+        if(count == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    bool isFull() 
+    {
+        if(count == size)
+            return true;
+        else
+            return false;
+    }
+};
+
+
+
 
 /**
  * Your MyCircularQueue object will be instantiated and called as such:
