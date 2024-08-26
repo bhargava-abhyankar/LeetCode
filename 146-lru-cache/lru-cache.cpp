@@ -1,5 +1,8 @@
+
+/*
 class LRUCache {
 public:
+*/
 
     /* Approach: First and foremost dont use dummy head. Write helper functions first. Delete of a node in doubly linked list by taking care of last node variable
                  then write a function to add a node at head. usual take care of head null case and last node = head. Now its simple to write get and put. Just
@@ -191,7 +194,8 @@ public:
         }
     }
     */
-    
+
+    /*    
     struct ListNode {
         int key;
         int val;
@@ -264,6 +268,83 @@ public:
         }
     }
 };
+
+*/
+
+class MyListNode {
+public:
+    int key;
+    int val;
+    MyListNode *prev;
+    MyListNode *next;
+    MyListNode(): key(0), val(0), prev(NULL), next(NULL) {}
+    MyListNode(int k, int value): key(k), val(value), prev(NULL), next(NULL) {}
+    MyListNode(int k, int value, MyListNode *p, MyListNode *n): key(k), val(value), prev(p), next(n) {}
+};
+
+class LRUCache {
+public:
+    MyListNode *head;
+    MyListNode *tail;
+    unordered_map<int, MyListNode *> hash;
+    int size;
+
+    LRUCache(int capacity) 
+    {
+        head = new MyListNode(-2, -2, NULL, NULL);
+        tail = new MyListNode(-1, -1, head, NULL);
+        head->next = tail;
+        size = capacity;
+    }
+
+    void AddAtFirst(MyListNode *cur)
+    {
+        cur->prev = head;
+        cur->next = head->next;
+        head->next->prev = cur;
+        head->next = cur;
+    }
+
+    void DeleteNode(MyListNode *Delete_Node)
+    {
+        Delete_Node->prev->next = Delete_Node->next;
+        Delete_Node->next->prev = Delete_Node->prev;
+    }
+
+    int get(int key) 
+    {
+        if(hash.find(key) == hash.end())
+            return -1;
+        
+        MyListNode *cur = hash[key];
+        DeleteNode(cur);
+        AddAtFirst(cur);
+        return cur->val;
+    }
+
+    void put(int key, int value) 
+    {
+        if(hash.find(key) != hash.end()) {
+            MyListNode *cur = hash[key];
+            cur->val = value;
+            DeleteNode(cur);
+            AddAtFirst(cur);
+        } else {
+            MyListNode *new_node = new MyListNode(key, value, NULL, NULL);
+            hash[key] = new_node;
+            AddAtFirst(new_node);
+
+            if(hash.size() > size) {
+                MyListNode *to_delete = tail->prev;
+                hash.erase(hash.find(to_delete->key));
+                DeleteNode(to_delete);
+                delete to_delete;
+            }
+        }
+    }
+};
+
+
 
 /**
  * Your LRUCache object will be instantiated and called as such:
