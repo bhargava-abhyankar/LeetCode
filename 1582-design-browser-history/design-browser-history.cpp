@@ -1,4 +1,4 @@
- /* Method 1 */
+ /* Method 1 
 
 class BrowserHistory {
 public:
@@ -38,6 +38,7 @@ public:
     }
 };
 
+*/
 
 /* Method 2:
 
@@ -98,7 +99,7 @@ public:
 
 */
 
-/* Method 3
+/* Method 3 */
 
 class BrowserHistory {
 public:
@@ -140,8 +141,6 @@ public:
     }
 
 };
-
-*/
 
 
 
