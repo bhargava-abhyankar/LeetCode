@@ -33,6 +33,7 @@ public:
     }
     */
 
+    /*
     vector<int> preorderTraversal(TreeNode* root) 
     {
         vector<int> ans;
@@ -56,4 +57,41 @@ public:
 
         return ans;
     }
+
+    */
+
+    vector<int> preorderTraversal(TreeNode* root) 
+    {
+        vector<int> ans;
+
+        if(!root)
+            return ans;
+        
+        TreeNode *current = root;
+
+        while(current) {
+            if(current->left == NULL) {
+                ans.push_back(current->val);
+                current = current->right;
+            } else {
+                TreeNode *traverse = current->left;
+
+                while(traverse->right && traverse->right != current) {
+                    traverse = traverse->right;
+                }
+
+                if(traverse->right == NULL) {
+                    ans.push_back(current->val);
+                    traverse->right = current;
+                    current = current->left;
+                } else {
+                    traverse->right = NULL;
+                    current = current->right;
+                }
+            }
+        }
+
+        return ans;
+    }
+
 };
