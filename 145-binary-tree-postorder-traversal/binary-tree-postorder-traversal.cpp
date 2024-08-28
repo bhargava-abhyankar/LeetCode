@@ -31,6 +31,7 @@ public:
     }
     */
 
+    /*
     vector<int> postorderTraversal(TreeNode* root) 
     {
         vector<int> ans;
@@ -59,6 +60,42 @@ public:
             ans.push_back(current->val);
         }
 
+        return ans;
+    }
+    */
+
+    vector<int> postorderTraversal(TreeNode* root) 
+    {
+        vector<int> ans;
+
+        if(!root)
+            return ans;
+        
+        TreeNode *current = root;
+
+        while(current) {
+            if(current->right == NULL) {
+                ans.push_back(current->val);
+                current = current->left;
+            } else {
+                TreeNode *traverse = current->right;
+
+                while(traverse->left && traverse->left != current) {
+                    traverse = traverse->left;
+                }
+
+                if(traverse->left == NULL) {
+                    traverse->left = current;
+                    ans.push_back(current->val);
+                    current = current->right;
+                } else {
+                    traverse->left = NULL;
+                    current = current->left;
+                }
+            }
+        }
+
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
