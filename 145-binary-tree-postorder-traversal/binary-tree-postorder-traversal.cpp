@@ -68,7 +68,7 @@ public:
 
     */
 
-    /* Method 3: Single stack iteration */
+    /* Method 3: Single stack iteration with reverse logic
 
     vector<int> postorderTraversal(TreeNode* root) 
     {
@@ -96,7 +96,44 @@ public:
         return ans;
     }
 
-    /* Method 4: Using Morris Traversal
+    */
+
+    /* Method 4: Single stack iteration without reverse */
+
+    vector<int> postorderTraversal(TreeNode* root) 
+    {
+        vector<int> ans;
+        stack<TreeNode *> st;
+
+        if(!root)
+            return ans;
+
+        TreeNode* prev = NULL;
+        TreeNode *current = root;
+
+        while(current || !st.empty()) {
+            if(current) {
+                st.push(current);
+                current = current->left;
+            } else {
+                TreeNode *traverse = st.top();
+
+                if(traverse->right && traverse->right != prev) {
+                    current = traverse->right;
+                } else {
+                    ans.push_back(traverse->val);
+                    prev = traverse;
+                    st.pop();
+                }
+            }
+        }
+
+        return ans;
+    }
+
+
+
+    /* Method 5: Using Morris Traversal
 
     vector<int> postorderTraversal(TreeNode* root) 
     {
