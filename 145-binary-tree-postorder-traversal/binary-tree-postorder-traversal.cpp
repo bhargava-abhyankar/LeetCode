@@ -72,68 +72,29 @@ public:
 
     vector<int> postorderTraversal(TreeNode* root) 
     {
-        vector<int> result;          // Vector to store the result in reverse post-order
-
-        if (root == nullptr) return result; // If the tree is empty, return immediately
-
-    stack<TreeNode*> s;          // Stack to hold nodes
-    
-
-    s.push(root);
-
-    while (!s.empty()) {
-        TreeNode* current = s.top();
-        s.pop();
-        result.push_back(current->val); // Visit the node
-
-        // Push left and then right to the stack
-        if (current->left) {
-            s.push(current->left);
-        }
-        if (current->right) {
-            s.push(current->right);
-        }
-    }
-
-    // Reverse the result to get the correct post-order traversal
-    reverse(result.begin(), result.end());
-    return result;
-    }
-
-    /*
-    vector<int> postorderTraversal(TreeNode* root) 
-    {
         vector<int> ans;
-        stack<TreeNode *> st;
-    
-        if(!root) {
+        stack<TreeNode*> st;
+
+        if(!root)
             return ans;
-        }
 
         TreeNode *current = root;
-        TreeNode *last_visited = NULL;
+        st.push(root);
 
-        while(current || !st.empty()) {
-            if(current) {
-                st.push(current);
-                current = current->left;
-            } else {
-                TreeNode *traverse = st.top();
+        while(!st.empty()) {
+            current = st.top();
+            st.pop();
+            ans.push_back(current->val);
 
-                if(traverse->right && traverse->right != last_visited) {
-                    current = traverse->right;
-                } else {
-                    ans.push_back(traverse->val);
-                    last_visited = traverse;
-                    st.pop();
-                }
-            }
+            if(current->left)
+                st.push(current->left);
+            if(current->right)
+                st.push(current->right);
         }
 
+        reverse(ans.begin(), ans.end());
         return ans;
     }
-
-    */
 
     /* Method 4: Using Morris Traversal
 
