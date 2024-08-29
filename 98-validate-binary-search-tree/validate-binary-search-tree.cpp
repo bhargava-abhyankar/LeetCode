@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /*
+
     bool check_if_bst(TreeNode *cur, TreeNode *&prev)
     {
         if(cur == NULL)
@@ -33,8 +35,37 @@ public:
         return check_if_bst(root, prev);
     }
 
+    */
 
-    /* method 2
+    /*method 2 */
+
+    bool isValidBST(TreeNode* root) 
+    {
+        stack<TreeNode *> st;
+        TreeNode *current = root, *prev = NULL;
+
+        while(current || !st.empty()) {
+            while(current) {
+                st.push(current);
+                current = current->left;
+            }
+
+            current = st.top();
+
+            if(prev && prev->val >= current->val) {
+                return false;
+            }
+
+            prev = current;
+            current = current->right;
+            st.pop();
+        }
+
+        return true;
+    }
+
+
+    /* method 3
 
     bool isValidBST(TreeNode* root) 
     {
