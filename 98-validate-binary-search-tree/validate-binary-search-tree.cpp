@@ -12,6 +12,29 @@
 class Solution {
 public:
 
+    bool check_if_bst(TreeNode *cur, TreeNode **prev)
+    {
+        if(cur == NULL)
+            return true;
+        
+        if(!check_if_bst(cur->left, prev))
+            return false;
+
+        if(*prev && (*prev)->val >= cur->val)
+            return false;
+
+        *prev = cur;
+        return check_if_bst(cur->right, prev);
+    }
+
+    bool isValidBST(TreeNode* root) 
+    {
+        TreeNode *prev = NULL;
+        return check_if_bst(root, &prev);
+    }
+
+
+    /* method 2
 
     bool isValidBST(TreeNode* root) 
     {
@@ -54,48 +77,5 @@ public:
         return ans;
     }
 
-
-    /*
-    bool isValidBST(TreeNode* root) 
-    {
-        long prev = LONG_MIN;
-        bool ans = true;
-        TreeNode *pred = NULL,*node = root;
-
-        while(node) {
-            if(!node->left) {
-                int val = node->val;
-				
-                if (prev != LONG_MIN && prev >= val) {
-                    ans = false;
-                }
-
-                prev = node->val;
-                node = node->right;
-            } else {
-                pred = node->left;
-                
-                while(pred->right && pred->right != node) {
-                    pred = pred->right;
-                }
-                
-                if(pred->right) {
-                    pred->right = nullptr;
-					
-                    if(prev != LONG_MIN && prev >= node->val) {
-                        ans = false;
-                    }
-
-                    prev = node->val;
-                    node = node->right;
-                } else {
-                    pred->right = node;
-                    node = node->left;
-                }
-            }
-        }
-
-        return ans;
-    }
     */
 };
