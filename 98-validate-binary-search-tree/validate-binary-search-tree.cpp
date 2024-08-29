@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    bool check_if_bst(TreeNode *cur, TreeNode **prev)
+    bool check_if_bst(TreeNode *cur, TreeNode *&prev)
     {
         if(cur == NULL)
             return true;
@@ -20,17 +20,17 @@ public:
         if(!check_if_bst(cur->left, prev))
             return false;
 
-        if(*prev && (*prev)->val >= cur->val)
+        if(prev && prev->val >= cur->val)
             return false;
 
-        *prev = cur;
+        prev = cur;
         return check_if_bst(cur->right, prev);
     }
 
     bool isValidBST(TreeNode* root) 
     {
         TreeNode *prev = NULL;
-        return check_if_bst(root, &prev);
+        return check_if_bst(root, prev);
     }
 
 
