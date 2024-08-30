@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1:
+
     void invert_using_post_order(TreeNode* cur)
     {
         if(cur == NULL) {
@@ -30,4 +32,37 @@ public:
         invert_using_post_order(root);
         return root;   
     }
+
+    */
+
+    /* Method 2 */
+
+    TreeNode* invertTree(TreeNode* root) 
+    {
+        if(!root)
+            return root;
+        
+        queue<TreeNode *> q;
+        q.push(root);
+
+        while(!q.empty()) {
+            TreeNode *cur = q.front();
+            q.pop();
+
+            TreeNode *temp = cur->left;
+            cur->left = cur->right;
+            cur->right = temp;
+
+            if(cur->left) { 
+                q.push(cur->left); 
+            } 
+
+            if(cur->right) {
+                q.push(cur->right);
+            }            
+        }
+
+        return root;
+    }
+
 };
