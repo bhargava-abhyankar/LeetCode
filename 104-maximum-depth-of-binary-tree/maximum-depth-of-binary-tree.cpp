@@ -61,7 +61,7 @@ public:
 
     */
 
-    /* method 3: DFS iterative, that is pre order iterative */
+    /* method 3: DFS iterative, that is pre order iterative 
 
     int maxDepth(TreeNode* root) 
     {
@@ -87,6 +87,39 @@ public:
             if(current_node->left) {
                 st.push({current_node->left, count + 1});
             }
+        }
+
+        return ans;
+    }
+
+    */
+
+    /* method 4: BFS. i.e level order traversal */
+
+    int maxDepth(TreeNode* root) 
+    {
+        int ans = 0;
+        if(!root)
+            return ans;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while(!q.empty()) {
+            int count = q.size();
+
+            while(count) {
+                TreeNode *cur = q.front();
+                q.pop();
+
+                if(cur->left)
+                    q.push(cur->left);
+                if(cur->right)
+                    q.push(cur->right);
+
+                count--;
+            }
+            ans++;
         }
 
         return ans;
