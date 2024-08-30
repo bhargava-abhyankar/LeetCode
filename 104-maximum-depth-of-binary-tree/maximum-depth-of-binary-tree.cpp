@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /* method 1: counting from top.
+    /* method 1: counting from top. i.e pre order traversal using recursion
 
     void calculate_max_depth(TreeNode *node, int cur, int &ans)
     {
@@ -43,7 +43,7 @@ public:
 
     */
 
-    /* method 2 : counting from bottom */
+    /* method 2 : counting from bottom, i.e post order using recursion 
 
     int maxDepth(TreeNode* root) 
     {
@@ -57,5 +57,38 @@ public:
         count_from_right_subtree = count_from_right_subtree + 1;          // add current node to count
         return max(count_from_left_subtree, count_from_right_subtree);    // now for the current node, its max among left and right subtree including itself is its height. this is
                                                                           // calculated for all nodes. at last root will have the ans.
+    }
+
+    */
+
+    /* method 3: DFS iterative, that is pre order iterative */
+
+    int maxDepth(TreeNode* root) 
+    {
+        if(!root)
+            return 0;
+
+        int ans = 0;
+        stack<pair<TreeNode*, int>> st;
+        st.push({root, 1});
+
+        while(!st.empty()) {
+            auto current = st.top();
+            st.pop();
+
+            TreeNode  *current_node = current.first;
+            int count = current.second;
+            ans = max(ans, count);
+
+            if(current_node->right) {
+                st.push({current_node->right, count + 1});
+            }
+
+            if(current_node->left) {
+                st.push({current_node->left, count + 1});
+            }
+        }
+
+        return ans;
     }
 };
