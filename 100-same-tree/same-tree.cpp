@@ -57,6 +57,8 @@ public:
 
     */
 
+    /* method 2: using pre order
+
     void check_if_same(TreeNode* p, TreeNode* q, bool &ans)
     {
         if(p == NULL && q == NULL)
@@ -80,4 +82,29 @@ public:
         return ans;
     }
 
+    */
+
+    bool isSameTree(TreeNode* p, TreeNode* q) 
+    {
+        if(p == NULL && q == NULL)
+            return true;
+
+        stack<pair<TreeNode*, TreeNode*>> st;
+        st.push({p, q});
+
+        while(!st.empty()) {
+            TreeNode *tree_one = st.top().first;
+            TreeNode *tree_second = st.top().second;
+            st.pop();
+
+            if ((tree_one && tree_second && tree_one->val == tree_second->val)) {
+                st.push({tree_one->left, tree_second->left});
+                st.push({tree_one->right, tree_second->right});
+            } else if ((tree_one && tree_second == NULL) || (tree_one == NULL && tree_second) || (tree_one && tree_second && tree_one->val != tree_second->val)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 };
