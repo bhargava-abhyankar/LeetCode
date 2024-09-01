@@ -60,6 +60,8 @@ public:
 
     */
 
+    /* method 1: Using recursion 
+
     bool check_if_symmetric(TreeNode *p, TreeNode *q)
     {
         if(p == NULL && q == NULL)
@@ -79,6 +81,32 @@ public:
 
         return check_if_symmetric(root->left, root->right);
 
+    }
+
+    */
+
+    bool isSymmetric(TreeNode* root) 
+    {
+        if(root == NULL)
+            return true;
+        
+        stack<pair<TreeNode *, TreeNode *>> st;
+        st.push({root->left, root->right});
+
+        while(!st.empty()) {
+            TreeNode *p = st.top().first;
+            TreeNode *q = st.top().second;
+            st.pop();
+
+            if(p && q && p->val == q->val) {
+                st.push({p->left, q->right});
+                st.push({p->right, q->left});
+            } else if ((p && q == NULL) || (p == NULL && q) || (p && q && p->val != q->val)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 };
