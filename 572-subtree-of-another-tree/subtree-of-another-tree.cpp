@@ -41,7 +41,7 @@ public:
 
     */
 
-    /* Method 2: BFS and DFS. Not better in time and space, another method */
+    /* Method 2: BFS and DFS.  another method 
 
     bool isSameTree(TreeNode *p, TreeNode *q)
     {
@@ -75,4 +75,35 @@ public:
         }
         return false;
     }
+
+    */
+
+    /* Method 3:  Optimized Method */
+
+    void serialize(TreeNode *cur, stringstream &s)
+    {
+        if(cur == NULL) {
+            s << ",#";
+            return;
+        }
+
+        s << "," << cur->val;
+        serialize(cur->left, s);
+        serialize(cur->right, s);
+    }
+
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) 
+    {
+        stringstream rootstream;
+        stringstream subrootstram;
+
+        serialize(root, rootstream);
+        serialize(subRoot, subrootstram);
+
+        string root_string = rootstream.str();
+        string subroot_string = subrootstram.str();
+
+        return (root_string.find(subroot_string) != string::npos);
+    }
+
 };
