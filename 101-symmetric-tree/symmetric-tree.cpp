@@ -85,6 +85,8 @@ public:
 
     */
 
+    /* Method 2. using iterative pre order 
+
     bool isSymmetric(TreeNode* root) 
     {
         if(root == NULL)
@@ -106,6 +108,33 @@ public:
             }
         }
 
+        return true;
+    }
+
+    */
+
+    /* Method 3: Using BFS */
+
+    bool isSymmetric(TreeNode* root) 
+    {
+        if(root == NULL)
+            return true;
+        
+        queue<pair<TreeNode *, TreeNode *>> qt;
+        qt.push({root->left, root->right});
+
+        while(!qt.empty()) {
+            TreeNode *p = qt.front().first;
+            TreeNode *q = qt.front().second;
+            qt.pop();
+
+            if(p && q && p->val == q->val) {
+                qt.push({p->left, q->right});
+                qt.push({p->right, q->left});
+            } else if ((p && q == NULL) || (p == NULL && q) || (p && q && p->val != q->val)) {
+                return false;
+            }
+        }
         return true;
     }
 
