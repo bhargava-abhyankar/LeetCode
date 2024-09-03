@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /*Method 1: Simple recursion */
+    /*Method 1: Simple recursion 
 
     void pre_order(TreeNode *cur, vector<int>& leaf)
     {
@@ -34,7 +34,9 @@ public:
         return(l1 == l2);
     }
 
-    /*Method 2: Best method. Using pre order template 
+    */
+
+    /*Method 2: Best method. Using pre order template */
 
     int next_leaf(stack<TreeNode *> &s)
     {
@@ -71,12 +73,11 @@ public:
             if(node1 != node2) {
                 return false;
             }
-
         }
 
         return(st1.empty() && st2.empty());   
     }
 
-    */
+    
     
 };
