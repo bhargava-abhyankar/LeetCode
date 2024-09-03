@@ -54,7 +54,7 @@ public:
             }
             current = st.top();
             st.pop();
-            cout << current->val << ", ";
+            
             if ((current->val >= low) && (current->val <= high))
                 ans = ans + current->val;
 
