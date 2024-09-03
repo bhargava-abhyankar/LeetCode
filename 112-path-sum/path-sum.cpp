@@ -12,7 +12,36 @@
 class Solution {
 public:
 
-    /*method 1: 
+    /* Method 1: using my style of recursion
+
+    void check_if_sum_present(TreeNode *cur, int val, int &target, bool &ans)
+    {
+        if(cur == NULL)
+            return;
+        
+        val = val + cur->val;
+
+        if(cur->left == NULL && cur->right == NULL) {
+            if(val == target)
+                ans = true;
+        }
+
+        if(!ans)
+            check_if_sum_present(cur->left, val, target, ans);
+        if(!ans)
+            check_if_sum_present(cur->right, val, target, ans);
+    } 
+
+    bool hasPathSum(TreeNode* root, int targetSum) 
+    {
+        bool ans = false;
+        check_if_sum_present(root, 0, targetSum, ans);
+        return ans;
+    }
+
+    */
+
+    /* Method 2: 
 
     bool check_if_sum_present(TreeNode *cur, int val, int &target)
     {
@@ -38,29 +67,35 @@ public:
 
     */
 
-    void check_if_sum_present(TreeNode *cur, int val, int &target, bool &ans)
-    {
-        if(cur == NULL)
-            return;
-        
-        val = val + cur->val;
-
-        if(cur->left == NULL && cur->right == NULL) {
-            if(val == target)
-                ans = true;
-        }
-
-        if(!ans)
-            check_if_sum_present(cur->left, val, target, ans);
-        if(!ans)
-            check_if_sum_present(cur->right, val, target, ans);
-    } 
-
     bool hasPathSum(TreeNode* root, int targetSum) 
     {
-        bool ans = false;
-        check_if_sum_present(root, 0, targetSum, ans);
-        return ans;
+        if(!root)
+            return false;
+
+        int cur_sum = 0;
+        stack<pair<TreeNode *, int>> st;
+        st.push({root, 0});
+
+        while(!st.empty()) {
+            TreeNode *current = st.top().first;
+            int cur_sum = st.top().second;
+            st.pop();
+
+            cur_sum = cur_sum + current->val;
+
+            if(current->left == NULL && current->right == NULL) {
+                if(cur_sum == targetSum)
+                    return true;
+            }
+
+            if(current->left) 
+                st.push({current->left, cur_sum});
+            if(current->right)
+                st.push({current->right, cur_sum});
+        }
+        
+        return false;
+
     }
 
 };
