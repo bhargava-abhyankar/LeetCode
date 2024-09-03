@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /*method 1: 
+
     bool check_if_sum_present(TreeNode *cur, int val, int &target)
     {
         if(cur == NULL)
@@ -33,4 +35,32 @@ public:
     {
         return check_if_sum_present(root, 0, targetSum);
     }
+
+    */
+
+    void check_if_sum_present(TreeNode *cur, int val, int &target, bool &ans)
+    {
+        if(cur == NULL)
+            return;
+        
+        val = val + cur->val;
+
+        if(cur->left == NULL && cur->right == NULL) {
+            if(val == target)
+                ans = true;
+        }
+
+        if(!ans)
+            check_if_sum_present(cur->left, val, target, ans);
+        if(!ans)
+            check_if_sum_present(cur->right, val, target, ans);
+    } 
+
+    bool hasPathSum(TreeNode* root, int targetSum) 
+    {
+        bool ans = false;
+        check_if_sum_present(root, 0, targetSum, ans);
+        return ans;
+    }
+
 };
