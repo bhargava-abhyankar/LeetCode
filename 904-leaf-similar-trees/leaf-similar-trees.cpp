@@ -12,6 +12,30 @@
 class Solution {
 public:
 
+    /*Method 1: Simple recursion */
+
+    void pre_order(TreeNode *cur, vector<int>& leaf)
+    {
+        if(cur == NULL)
+            return;
+        
+        if(cur->left == NULL && cur->right == NULL)
+            leaf.push_back(cur->val);
+
+        pre_order(cur->left, leaf);
+        pre_order(cur->right, leaf);
+    }
+
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) 
+    {
+        vector<int> l1, l2;
+        pre_order(root1, l1);
+        pre_order(root2, l2);
+        return(l1 == l2);
+    }
+
+    /*Method 2: Best method. Using pre order template 
+
     int next_leaf(stack<TreeNode *> &s)
     {
         while(!s.empty()) {
@@ -28,6 +52,7 @@ public:
 
         return -1;
     }
+
     bool leafSimilar(TreeNode* root1, TreeNode* root2) 
     {
         if((root1 && !root2) || (!root1 && root2))
@@ -52,4 +77,6 @@ public:
         return(st1.empty() && st2.empty());   
     }
 
+    */
+    
 };
