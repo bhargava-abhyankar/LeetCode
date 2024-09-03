@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* method 1: using recursion
+
     void find_range_sum(TreeNode* cur, int &low, int &high, int &ans)
     {
         if(cur == NULL)
@@ -28,6 +30,38 @@ public:
     {
         int ans = 0;
         find_range_sum(root, low, high, ans);
+        return ans;
+    }
+
+    */
+
+    /* Method 2: using iteration */
+
+    int rangeSumBST(TreeNode* root, int low, int high) 
+    {
+        if(!root)
+            return 0;
+        
+        int ans = 0;
+        TreeNode *current = root;
+        stack<TreeNode *> st;
+
+        while(current || !st.empty()) {
+
+            while(current) {
+                st.push(current);
+                current = current->left;
+            }
+            current = st.top();
+            st.pop();
+            cout << current->val << ", ";
+            if ((current->val >= low) && (current->val <= high))
+                ans = ans + current->val;
+
+            current = current->right;
+
+        }
+
         return ans;
     }
 };
