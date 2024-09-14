@@ -24,6 +24,8 @@ public:
 
         if(cur->left == NULL && cur->right == NULL && cur_sum == targetSum) {
            ans.push_back(path);
+           path.pop_back();
+           return true;
         }
 
         calculate(cur->left, cur_sum, targetSum, path, ans);
