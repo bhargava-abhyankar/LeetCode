@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /* Method 1 : Using recursion */
+    /* Method 1 : Using recursion 
 
     bool calculate(TreeNode* cur, int cur_sum, int &targetSum, vector<int> &path, vector<vector<int>> &ans)
     {
@@ -42,4 +42,39 @@ public:
         calculate(root, 0, targetSum, path, ans);
         return ans;
     }
+
+    */
+
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) 
+    {
+        vector<vector<int>> ans;
+        stack<pair<TreeNode *, pair<int, vector<int>>>> st;
+
+        if(root == NULL)
+            return ans;
+        
+        st.push({root, {0, vector<int>()}});
+
+        while(!st.empty()) {
+            TreeNode *current = st.top().first;
+            int cur_sum = st.top().second.first;
+            vector<int> cur_path = st.top().second.second;
+            st.pop();
+
+            cur_sum = cur_sum + current->val;
+            cur_path.push_back(current->val);
+
+            if(current->left == NULL && current->right == NULL && cur_sum == targetSum) {
+                ans.push_back(cur_path);
+            }
+
+            if(current->right)
+                st.push({current->right, {cur_sum, cur_path}});
+            if(current->left)
+                st.push({current->left, {cur_sum, cur_path}});          
+        }
+        
+        return ans;
+    }
+
 };
