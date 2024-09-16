@@ -12,12 +12,40 @@
 class Solution {
 public:
 
+    /* Method 1: Always Choose Left Middle Node as a Root
+
     TreeNode* construct_bst(vector<int>& nums, int start, int end)
     {
         if(start > end)
             return NULL;
         
         int mid = (start + end) / 2;
+        TreeNode *node = new TreeNode(nums[mid]);
+        node->left = construct_bst(nums, start, mid-1);
+        node->right = construct_bst(nums, mid+1, end);
+        return node;
+    }
+
+    TreeNode* sortedArrayToBST(vector<int>& nums) 
+    {
+        TreeNode *root = construct_bst(nums, 0, nums.size()-1);
+        return root;
+    }
+
+    */
+
+    /* Method 2: */
+
+    TreeNode* construct_bst(vector<int>& nums, int start, int end)
+    {
+        if(start > end)
+            return NULL;
+
+        int mid = (start + end) / 2;
+        if (((start + end) % 2) == 1) {
+            mid = mid + 1;
+        }
+
         TreeNode *node = new TreeNode(nums[mid]);
         node->left = construct_bst(nums, start, mid-1);
         node->right = construct_bst(nums, mid+1, end);
