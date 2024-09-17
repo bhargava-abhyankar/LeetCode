@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* method 1: Using recursion 
+
     TreeNode* construct_bt(vector<int>& inorder, vector<int>& postorder, int start, int end, int &po_index, 
                             unordered_map<int, int> &hash)
     {
@@ -38,6 +40,61 @@ public:
         }
 
         TreeNode *root = construct_bt(inorder, postorder, 0, inorder.size()-1, po_index, hash);
+        return root;
+    }
+
+    */
+
+    /* Method 2: Using Iteration */
+
+    struct NodeInfo {
+        TreeNode *parent;
+        int start;
+        int end;
+        bool isLeft;
+    };
+
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) 
+    {
+        unordered_map<int, int> hash;
+
+        for(int i = 0; i < inorder.size(); i++) {
+            hash[inorder[i]] = i;
+        }
+
+        int postorder_index = postorder.size()-1;
+        stack<NodeInfo> st;
+        TreeNode *root = new TreeNode(postorder[postorder_index]);
+        int start = 0, end = inorder.size()-1, mid = hash[postorder[postorder_index]];
+        postorder_index--;
+
+        st.push({root, start, mid-1, true});
+        st.push({root, mid+1, end, false});
+        
+        
+        while(!st.empty()) {
+            struct NodeInfo info = st.top();
+            st.pop();
+
+            start = info.start;
+            end = info.end;
+
+            if(start > end)
+                continue;
+
+            mid = hash[postorder[postorder_index]];
+            TreeNode *cur = new TreeNode(postorder[postorder_index]);
+            postorder_index--;
+
+            if(info.isLeft)
+                info.parent->left = cur;
+            else
+                info.parent->right = cur;
+            
+            st.push({cur, start, mid-1, true});
+            st.push({cur, mid+1, end, false});
+        }
+
         return root;
     }
 };
