@@ -12,6 +12,35 @@
 class Solution {
 public:
 
+    /* Method 1: Using pre order recursion */
+
+    void reverse_level_order(TreeNode* cur, int level, vector<vector<int>> &ans) 
+    {
+        if(cur == NULL)
+            return;
+    
+        if(ans.size() <= level) {
+            vector<int> t;
+            t.push_back(cur->val);
+            ans.insert(ans.begin(), t);
+        } else {
+            int l = (ans.size()-1) - level;
+            ans[l].push_back(cur->val);
+        }
+
+        reverse_level_order(cur->left, level + 1, ans);
+        reverse_level_order(cur->right, level + 1, ans);
+    }
+
+    vector<vector<int>> levelOrderBottom(TreeNode* root) 
+    {
+        vector<vector<int>> ans;
+        reverse_level_order(root, 0, ans);
+        return ans;
+    }
+
+    /* Method 2: Using BFS
+
     vector<vector<int>> levelOrderBottom(TreeNode* root) 
     {
         vector<vector<int>> ans;
@@ -45,5 +74,7 @@ public:
 
         return ans;
     }
+
+    */
    
 };
