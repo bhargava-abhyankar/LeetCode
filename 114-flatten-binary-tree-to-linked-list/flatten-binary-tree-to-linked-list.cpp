@@ -11,38 +11,8 @@
  */
 class Solution {
 public:
+
     /*
-    void flatten(TreeNode* root) 
-    {
-        if(root == NULL)
-        {
-            return;
-        }
-
-        struct TreeNode *cur = root;
-
-        while(cur != NULL)
-        {
-            struct TreeNode *rmist = cur->left;
-
-            if(cur->left == NULL)
-            {
-                cur = cur->right;
-            }
-            else
-            {
-                while(rmist && rmist->right != NULL)
-                {
-                    rmist = rmist->right;
-                }
-                rmist->right = cur->right;
-                cur->right = cur->left;
-                cur->left = NULL;
-                cur = cur->right;
-            }
-        }
-    }
-    */
 
     TreeNode *post_order_flatten(TreeNode *cur)
     {
@@ -68,4 +38,31 @@ public:
     {
         root = post_order_flatten(root);
     }
+
+    */
+
+    TreeNode *post_order_flatten(TreeNode *cur)
+    {
+        if(cur == NULL)
+            return NULL;
+
+        if(cur->left == NULL && cur->right == NULL)
+            return cur;
+
+        TreeNode *left = post_order_flatten(cur->left);
+        TreeNode *right = post_order_flatten(cur->right);
+
+        if(left) {
+            left->right = cur->right;
+            cur->right = cur->left;
+            cur->left = NULL;
+        }
+        return right == NULL ? left: right;
+    }
+
+    void flatten(TreeNode* root) 
+    {
+        root = post_order_flatten(root);
+    }
+
 };
