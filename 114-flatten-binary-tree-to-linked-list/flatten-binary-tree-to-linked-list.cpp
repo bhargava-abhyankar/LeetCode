@@ -41,6 +41,8 @@ public:
 
     */
 
+    /* Method 1: Using Post order recursion 
+
     TreeNode *post_order_flatten(TreeNode *cur)
     {
         if(cur == NULL)
@@ -63,6 +65,38 @@ public:
     void flatten(TreeNode* root) 
     {
         root = post_order_flatten(root);
+    }
+
+    */
+
+    /* Method 2 : Using pre order Morris Travel based approach */
+
+    void flatten(TreeNode* root) 
+    {
+        if(root == NULL)
+            return;
+        
+        TreeNode *current = root;
+
+        while(current) {
+            if(current->left == NULL) {
+                current = current->right;
+            } else {
+                TreeNode *traverse = current->left;
+
+                while(traverse->right) {
+                    traverse = traverse->right;
+                }
+
+                if(traverse) {
+                    traverse->right = current->right;
+                    current->right = current->left;
+                    current->left = NULL;
+                }
+            }
+        }
+
+        return;
     }
 
 };
