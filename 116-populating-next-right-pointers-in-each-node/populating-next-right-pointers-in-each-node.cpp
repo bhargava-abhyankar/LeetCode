@@ -19,72 +19,8 @@ public:
 class Solution {
 public:
 
-
-    /*
-    Node* connect(Node* root) 
-    {
-        int node_count = 0, temp = 0;
-        queue<struct Node*> my_queue;
-        Node *cur = NULL, *prev = NULL;
-
-        if(root)
-        {
-            if(root->left)
-            {
-                my_queue.push(root->left);
-                node_count++;
-            }
-            if(root->right)
-            {
-                my_queue.push(root->right);
-                node_count++;
-            }
-            root->next = NULL;
-        }
-
-        while(!my_queue.empty())
-        {
-            temp = node_count;
-            prev = NULL;
-
-            while(temp)
-            {
-                cur = my_queue.front();
-                
-                if(cur->left)
-                {
-                    my_queue.push(cur->left);
-                    node_count++;
-                }
-
-                if(cur->right)
-                {
-                    my_queue.push(cur->right);
-                    node_count++;
-                }
-
-                if(prev == NULL)
-                {
-                    prev = cur;
-                }
-                else
-                {
-                    prev->next = cur;
-                    prev = cur;
-                }
-
-                my_queue.pop();
-                temp--;
-                node_count--;
-            }
-            cur->next = NULL;
-        }
-
-        return root;
-    }
-
-    */
-
+    /*Method 1: Using BFS 
+   
     Node* connect(Node* root) 
     {
         if(root == NULL) {
@@ -109,7 +45,6 @@ public:
                     prev = cur;
                 }
                 
-
                 if(cur->left) {
                     q.push(cur->left);
                 }
@@ -121,4 +56,37 @@ public:
 
         return root;
     }
+
+    */
+
+    /* Method 2: Modified BFS, works only if its perfect binary tree */
+
+    Node* connect(Node* root) 
+    {
+        if(root == NULL)
+            return NULL;
+        
+        Node *first_left_at_level = root;
+
+        while(first_left_at_level->left) {
+            Node *traverse = first_left_at_level;
+
+            while(traverse) {
+
+                traverse->left->next = traverse->right;
+
+                if(traverse->next) {
+                    traverse->right->next = traverse->next->left;
+                }
+
+                
+                traverse = traverse->next;
+            }
+
+            first_left_at_level = first_left_at_level->left;
+        }
+
+        return root;
+    }
+
 };
