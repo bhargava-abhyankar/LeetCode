@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1: modified pre order recursion */
+
     void modified_preorder (TreeNode *cur, int level, vector<int> &ans)
     {
         if(cur == NULL)
@@ -20,8 +22,10 @@ public:
         if(ans.size() == level)
             ans.push_back(cur->val);
 
-        modified_preorder(cur->right, level + 1, ans);
-        modified_preorder(cur->left, level + 1, ans);
+        if(cur->right)
+            modified_preorder(cur->right, level + 1, ans);
+        if(cur->left)
+            modified_preorder(cur->left, level + 1, ans);
     }
 
     vector<int> rightSideView(TreeNode* root) 
@@ -30,4 +34,13 @@ public:
         modified_preorder(root, 0, ans);
         return ans;
     }
+
+    /* Method 2: Using BFS 
+
+    vector<int> rightSideView(TreeNode* root) 
+    {
+
+    }
+
+    */
 };
