@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /* Method 1: modified pre order recursion */
+    /* Method 1: modified pre order recursion 
 
     void modified_preorder (TreeNode *cur, int level, vector<int> &ans)
     {
@@ -35,12 +35,41 @@ public:
         return ans;
     }
 
-    /* Method 2: Using BFS 
+    */
+
+    /* Method 2: Using BFS */
 
     vector<int> rightSideView(TreeNode* root) 
     {
+        vector<int> ans;
 
+        if(root == NULL) {
+            return ans;
+        }
+
+        deque<TreeNode *> dq;
+        dq.push_back(root);
+
+        while(!dq.empty()) {
+            int size = dq.size();
+            ans.push_back(dq.back()->val);
+
+            for(int i = 0; i < size; i++) {
+                TreeNode *cur = dq.front();
+                dq.pop_front();
+
+                if(cur->left) {
+                    dq.push_back(cur->left);
+                }
+
+                if(cur->right) {
+                    dq.push_back(cur->right);
+                }
+            }
+        }
+
+        return ans;
     }
 
-    */
+    
 };
