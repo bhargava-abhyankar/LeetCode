@@ -39,6 +39,8 @@ public:
 
     */
 
+    /* Method 1: Better recursion method 
+
     void all_paths(TreeNode* cur, string cur_path, vector<string> &ans)
     {        
         if(cur->left == NULL && cur->right == NULL) {
@@ -65,4 +67,39 @@ public:
         all_paths(root, cur_path, ans);
         return ans;
     }
+
+    */
+
+    vector<string> binaryTreePaths(TreeNode* root) 
+    {
+        vector<string> ans;
+
+        if(root == NULL)
+            return ans;
+        
+        stack<pair<TreeNode *, string>> st;
+        st.push({root, to_string(root->val)});
+
+        while(!st.empty()) {
+            TreeNode *cur = st.top().first;
+            string cur_path = st.top().second;
+            st.pop();
+
+            if(cur->left == NULL && cur->right == NULL) {
+                ans.push_back(cur_path);
+                continue;
+            }
+
+            if(cur->right) {
+                st.push({cur->right, cur_path + "->" + to_string(cur->right->val)});
+            }
+
+            if(cur->left) {
+                st.push({cur->left, cur_path + "->" + to_string(cur->left->val)});
+            }
+        }
+
+        return ans;
+    }
+
 };
