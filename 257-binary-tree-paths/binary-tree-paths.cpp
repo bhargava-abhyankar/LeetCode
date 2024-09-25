@@ -40,10 +40,7 @@ public:
     */
 
     void all_paths(TreeNode* cur, string cur_path, vector<string> &ans)
-    {
-        if(cur == NULL)
-            return;
-        
+    {        
         if(cur->left == NULL && cur->right == NULL) {
             cur_path = cur_path + to_string(cur->val);        
             ans.push_back(cur_path);
@@ -51,8 +48,12 @@ public:
         }
 
         cur_path = cur_path + to_string(cur->val) + "->";
-        all_paths(cur->left, cur_path, ans);
-        all_paths(cur->right, cur_path, ans);
+
+        if(cur->left)
+            all_paths(cur->left, cur_path, ans);
+        if(cur->right)
+            all_paths(cur->right, cur_path, ans);
+
         cur_path.pop_back();
     }
 
