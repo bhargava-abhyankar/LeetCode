@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1: Using pre order level traversal 
+
     void calculate(TreeNode *cur, int level, vector<pair<double, double>> &level_data)
     {
         if(cur == NULL)
@@ -39,5 +41,43 @@ public:
         }
 
         return ans;    
+    }
+
+    */
+
+    /* Method 2 : Using BFS */
+
+    vector<double> averageOfLevels(TreeNode* root) 
+    {
+        vector<double> ans;
+
+        if(root == NULL)
+            return ans;
+        
+        double level_sum = 0, level_element = 0;
+        queue<TreeNode *> q;
+        q.push(root);
+
+        while(!q.empty()) {
+            int size = q.size();
+
+            for(int i = 0; i < size; i++) {
+                TreeNode *cur = q.front();
+                q.pop();
+
+                level_sum = level_sum + cur->val;
+                level_element++;
+
+                if(cur->left)
+                    q.push(cur->left);
+                if(cur->right)
+                    q.push(cur->right);
+            }
+            ans.push_back( level_sum/level_element);
+            level_sum = 0;
+            level_element = 0;
+        }
+
+        return ans;
     }
 };
