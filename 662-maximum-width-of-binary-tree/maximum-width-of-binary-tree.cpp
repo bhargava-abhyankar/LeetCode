@@ -13,35 +13,30 @@ class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) 
     {
-        int ans = 0;
-
-        if(!root)
+        long long ans = 0;
+        if(root == NULL)
             return 0;
-
+        
         queue<pair<TreeNode*, long long>> q;
         q.push({root, 0});
 
         while(!q.empty()) {
+            int size = q.size();
 
-            int count = q.size();
-            int end = q.back().second; 
-            int start = q.front().second;
+            long long start = q.front().second;
+            long long end = q.back().second;
 
-            ans = max(ans, end-start +1);
+            ans = max(ans, (end - start + 1));
 
-            for(int i = 0; i < count; i++) {
-
-                TreeNode* node = q.front().first;
-                int n = q.front().second - start;
+            for(int i = 0; i < size; i++) {
+                TreeNode *cur = q.front().first;
+                long long index = q.front().second - start; // this is just to prevent overflow, otherwise not needed
                 q.pop();
 
-                if(node->left != NULL) {
-                    q.push({node->left, (long long)2 * n + 1});
-                }
-
-                if(node->right != NULL) {
-                    q.push({node->right, (long long)2 * n + 2});
-                }    
+                if(cur->left)
+                    q.push({cur->left, (long long)2*index + 1});
+                if(cur->right)
+                    q.push({cur->right, (long long)2*index + 2});
             }
         }
 
