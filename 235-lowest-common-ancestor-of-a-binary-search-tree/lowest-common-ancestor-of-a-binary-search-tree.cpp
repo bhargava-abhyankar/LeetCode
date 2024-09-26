@@ -35,6 +35,8 @@ public:
 
     */
 
+    /* Method 2: DFS using iteration based on value of node in BST
+
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
     {
         if(root == NULL || p == NULL || q == NULL)
@@ -53,6 +55,34 @@ public:
                 break;
             }
         }
+        return ans;
+    }
+
+    */
+
+    /* Variation of this problem. Lowest Common ancestor of binary tree, this will work
+       for both binary tree and binary search tree */
+
+    TreeNode* postorder(TreeNode* cur, TreeNode* p, TreeNode* q)
+    {
+        if(cur == NULL)
+            return NULL;
+
+        if(cur == p || cur == q)
+            return cur;
+        
+        TreeNode *left = postorder(cur->left, p, q);
+        TreeNode *right = postorder(cur->right, p, q);
+
+        if(left && right)
+            return cur;
+        
+        return left ? left:right;
+    }
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
+    {
+        TreeNode *ans = postorder(root, p, q);
         return ans;
     }
 };
