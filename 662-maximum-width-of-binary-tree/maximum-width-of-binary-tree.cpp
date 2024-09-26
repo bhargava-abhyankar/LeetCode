@@ -50,8 +50,8 @@ public:
 
     /* Method 2: Using DFS, pre order level traversal. 
        idea is to store the leftmost or first index of each level. then for all the visits of the nodes,
-       node index - first index i.e should be taken from the vector + 1 is compared with existing ans
-       variable. 
+       node index - first index i.e should be taken from the vector. and add 1 to it then it is 
+       compared with existing ans variable. 
      */
 
     void dfs(TreeNode* cur, int level, unsigned long long index, 
