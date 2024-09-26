@@ -11,6 +11,8 @@
 class Solution {
 public:
 
+    /* Method 1: DFS Using recursion based on value of the node
+
     void recursive_search(TreeNode* cur, TreeNode* p, TreeNode* q, TreeNode* &ans) 
     {
         if(cur == NULL)
@@ -28,6 +30,29 @@ public:
     {
         TreeNode *ans = NULL;
         recursive_search(root, p, q, ans);
+        return ans;
+    }
+
+    */
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
+    {
+        if(root == NULL || p == NULL || q == NULL)
+            return NULL;
+        
+        TreeNode *traverse = root;
+        TreeNode *ans = NULL;
+
+        while(traverse) {
+            if(p->val < traverse->val && q->val < traverse->val) 
+                traverse = traverse->left;
+            else if (p->val > traverse->val && q->val > traverse->val)
+                traverse = traverse->right;
+            else {
+                ans = traverse;
+                break;
+            }
+        }
         return ans;
     }
 };
