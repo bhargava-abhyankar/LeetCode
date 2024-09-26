@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1: Using Iteration 
+
     TreeNode* insertIntoBST(TreeNode* root, int val) 
     {
         if(root == NULL) {
@@ -40,5 +42,23 @@ public:
         }
 
         return root;
+    }
+    */
+
+    /* Method 2: Using recursion */
+
+
+    TreeNode* insertIntoBST(TreeNode* root, int val) 
+    {
+        if(root == NULL)
+            return new TreeNode(val);
+        
+        if(val < root->val) {
+            root->left = insertIntoBST(root->left, val);
+            return root;
+        } else {
+            root->right = insertIntoBST(root->right, val);
+            return root;
+        }
     }
 };
