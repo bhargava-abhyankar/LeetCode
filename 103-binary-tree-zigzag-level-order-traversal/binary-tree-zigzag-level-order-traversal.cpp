@@ -11,6 +11,9 @@
  */
 class Solution {
 public:
+
+    /* Method 1: Using BFS  
+
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) 
     {
         vector<vector<int>> ans;
@@ -54,6 +57,36 @@ public:
             ans.push_back(cur_path);
             left_to_right = !left_to_right;
         }
+        return ans;
+    }
+
+    */
+
+    void preorder_level_traversal(TreeNode* cur, int level, vector<vector<int>> &ans)
+    {
+        if(cur == NULL)
+            return;
+
+        if(ans.size() == level) {
+            vector<int> temp;
+            temp.push_back(cur->val);
+            ans.push_back(temp);
+        } else {
+            if(level % 2 == 0)
+                ans[level].push_back(cur->val);
+            else {
+                ans[level].insert(ans[level].begin(), cur->val);
+            }
+        }
+
+        preorder_level_traversal(cur->left, level + 1, ans);
+        preorder_level_traversal(cur->right, level + 1, ans);
+    }
+
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) 
+    {
+        vector<vector<int>> ans;
+        preorder_level_traversal(root, 0, ans);
         return ans;
     }
 };
