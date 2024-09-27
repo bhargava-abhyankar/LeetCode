@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /* Method 1: Using Iteration 
+    /* Method 1: Using Iteration */
 
     TreeNode* delete_the_node(TreeNode *to_delete, TreeNode *parent, TreeNode *root)
     {
@@ -32,7 +32,9 @@ public:
                 traverse = traverse->left;
             }
             traverse->left = to_delete->left;
+            child = to_delete->right;
 
+            /*
             if(parent == NULL) {
                 traverse = to_delete->right;
                 root = traverse;
@@ -46,6 +48,7 @@ public:
                 delete to_delete;
             }
             return root;
+            */
         }
 
         if(parent) {
@@ -84,9 +87,7 @@ public:
         return root;
     }
 
-    */
-
-    /* Using recursion */
+    /* Using recursion 
 
     TreeNode* bstdelete(TreeNode *cur, TreeNode *parent, int &key)
     {
@@ -119,6 +120,7 @@ public:
             delete cur;
             return child;
         }
+
         return cur;
     }
 
@@ -127,4 +129,6 @@ public:
         root = bstdelete(root, NULL, key);
         return root;
     }
+
+    */
 };
