@@ -33,22 +33,6 @@ public:
             }
             traverse->left = to_delete->left;
             child = to_delete->right;
-
-            /*
-            if(parent == NULL) {
-                traverse = to_delete->right;
-                root = traverse;
-                delete to_delete;
-            } else {
-                if(parent->left == to_delete) {
-                    parent->left = to_delete->right;
-                } else {
-                    parent->right = to_delete->right;
-                }
-                delete to_delete;
-            }
-            return root;
-            */
         }
 
         if(parent) {
