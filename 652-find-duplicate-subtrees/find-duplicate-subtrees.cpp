@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1 : Using Post order recursion
+
     string find(TreeNode *cur, vector<TreeNode *>&ans, 
                 unordered_map<string, int> &hash)
     {
@@ -37,4 +39,32 @@ public:
         find(root, ans, hash);
         return ans;
     }
+
+    */
+
+    /* Method 2: Using another template */
+
+    string find(TreeNode *cur, vector<TreeNode *> &ans, 
+                unordered_map<string, int> &hash)
+    {
+        if(cur == NULL)
+            return "#";
+        
+        string current_string = to_string(cur->val) + "," +  find(cur->left, ans, hash)+ "," + find(cur->right, ans, hash);
+
+        if(hash[current_string] == 1)
+            ans.push_back(cur);
+
+        hash[current_string]++;
+        return current_string;
+    }
+
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) 
+    {
+        vector<TreeNode *> ans;
+        unordered_map<string, int> hash;
+        find(root, ans, hash);
+        return ans;
+    }
+
 };
