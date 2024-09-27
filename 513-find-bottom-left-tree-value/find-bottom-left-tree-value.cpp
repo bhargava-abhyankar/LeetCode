@@ -11,6 +11,9 @@
  */
 class Solution {
 public:
+
+    /* Method 1 : Using BFS 
+
     int findBottomLeftValue(TreeNode* root) 
     {
         int ans = 0;
@@ -35,5 +38,27 @@ public:
             }
         }
         return ans;
+    }
+
+    */
+
+    void calculate(TreeNode *cur, int level, vector<int> &ans)
+    {
+        if(cur == NULL)
+            return;
+        
+        if(ans.size() == level)
+            ans.push_back(cur->val);
+        
+        calculate(cur->left, level + 1, ans);
+        calculate(cur->right, level + 1, ans);
+    }
+
+    int findBottomLeftValue(TreeNode* root) 
+    {
+        vector<int> level_first;
+        calculate(root, 0, level_first);
+        int size = level_first.size();
+        return size > 0 ? level_first[size-1]:0;
     }
 };
