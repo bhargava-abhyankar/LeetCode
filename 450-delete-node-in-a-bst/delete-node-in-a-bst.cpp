@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /* Method 1: Using Iteration */
+    /* Method 1: Using Iteration 
 
     TreeNode* delete_the_node(TreeNode *to_delete, TreeNode *parent, TreeNode *root)
     {
@@ -81,6 +81,50 @@ public:
             }
         }
 
+        return root;
+    }
+
+    */
+
+    /* Using recursion */
+
+    TreeNode* bstdelete(TreeNode *cur, TreeNode *parent, int &key)
+    {
+        if(cur == NULL)
+            return cur;
+        
+        if(key < cur->val) {
+            cur->left = bstdelete(cur->left, cur, key);
+        } else if (key > cur->val) {
+            cur->right = bstdelete(cur->right, cur, key);
+        } else {
+            TreeNode *child = NULL;
+
+            if(cur->left == NULL && cur->right == NULL) {
+                child = NULL;
+            } else if (cur->left && cur->right == NULL) {
+                child = cur->left;
+            } else if (cur->right && cur->left == NULL) {
+                child = cur->right;
+            } else if (cur->left && cur->right) {
+                TreeNode *traverse = cur->right;
+
+                while(traverse->left)
+                    traverse = traverse->left;
+                
+                traverse->left = cur->left;
+                child = cur->right;
+            }
+
+            delete cur;
+            return child;
+        }
+        return cur;
+    }
+
+    TreeNode* deleteNode(TreeNode* root, int key) 
+    {
+        root = bstdelete(root, NULL, key);
         return root;
     }
 };
