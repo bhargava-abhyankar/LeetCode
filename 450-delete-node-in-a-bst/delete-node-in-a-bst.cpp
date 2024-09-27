@@ -12,48 +12,22 @@
 class Solution {
 public:
 
+    /* Method 1: Using Iteration */
+
     TreeNode* delete_the_node(TreeNode *to_delete, TreeNode *parent, TreeNode *root)
     {
-        if(to_delete->left == NULL && to_delete->right == NULL) {
-            if(parent == NULL) {
-                delete to_delete;
-                return NULL;
-            }
-            if(parent->left == to_delete) {
-                delete to_delete;
-                parent->left = NULL;
-            } else {
-                delete to_delete;
-                parent->right = NULL;
-            }
-        } else if (to_delete->left && to_delete->right == NULL) {
-            if(parent == NULL) {
-                root = to_delete->left;
-                delete to_delete;
-                return root; 
-            }
-            if(parent->left == to_delete) {
-                parent->left = to_delete->left;
-                delete to_delete;
-            } else {
-                parent->right = to_delete->left;
-                delete to_delete;
-            }
+        TreeNode *child = NULL;
+
+        if (to_delete->left && to_delete->right == NULL) {
+            child = to_delete->left;
         } else if (to_delete->right && to_delete->left == NULL) {
-            if(parent == NULL) {
-                root = to_delete->right;
-                delete to_delete;
-                return root;
-            }
-            if(parent->left == to_delete) {
-                parent->left = to_delete->right;
-                delete to_delete;
-            } else {
-                parent->right = to_delete->right;
-                delete to_delete;
-            }
-        } else if (to_delete->right && to_delete->left) {
+            child = to_delete->right;
+        } else if (to_delete->left && to_delete->right == NULL) {
+            child = to_delete->left;
+        } else if (to_delete->left && to_delete->right) {
+
             TreeNode *traverse = to_delete->right;
+
             while(traverse->left) {
                 traverse = traverse->left;
             }
@@ -61,8 +35,8 @@ public:
 
             if(parent == NULL) {
                 traverse = to_delete->right;
+                root = traverse;
                 delete to_delete;
-                return traverse;
             } else {
                 if(parent->left == to_delete) {
                     parent->left = to_delete->right;
@@ -71,8 +45,19 @@ public:
                 }
                 delete to_delete;
             }
+            return root;
         }
 
+        if(parent) {
+            if(parent->left == to_delete)
+                parent->left = child;
+            else
+                parent->right = child;
+        } else {
+            root = child;
+        }
+
+        delete to_delete;
         return root;
     }
 
