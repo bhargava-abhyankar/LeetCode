@@ -98,7 +98,7 @@ public:
 
     */
 
-    /* Method 4: Single stack iteration without reverse */
+    /* Method 4: Single stack iteration without reverse 
 
     vector<int> postorderTraversal(TreeNode* root) 
     {
@@ -131,7 +131,7 @@ public:
         return ans;
     }
 
-
+    */
 
     /* Method 5: Using Morris Traversal
 
@@ -171,4 +171,40 @@ public:
     }
 
     */
+
+
+    vector<int> postorderTraversal(TreeNode* root) 
+    {
+        if(root == NULL)
+            return vector<int>();
+    
+        vector<int> ans;
+        unordered_set<TreeNode *> hash;
+        stack<TreeNode *> st;
+        st.push(root);
+
+        while(!st.empty()) {
+            TreeNode *current = st.top();
+
+            if((current->left == nullptr && current->right == nullptr) ||
+            (hash.find(current) != hash.end())) {
+                ans.push_back(current->val);
+                st.pop();
+            } else {
+                hash.insert(current);
+
+                if(current->right) {
+                    st.push(current->right);
+                }
+                if(current->left) {
+                    st.push(current->left);
+                }
+
+            }
+        }
+
+        return ans;
+    }
+
+
 };
