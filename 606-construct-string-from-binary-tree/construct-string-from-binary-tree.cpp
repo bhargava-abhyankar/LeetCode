@@ -38,7 +38,7 @@ public:
 
     */
 
-    /*Method 2: Post order Iteration method. */
+    /*Method 2: Post order Iteration method. 
 
     string tree2str(TreeNode* root) 
     {
@@ -67,6 +67,44 @@ public:
                     st.pop();
                     result = result + ")";
                 }
+            }
+        }
+
+        return result.substr(1, result.size() - 2);
+    }
+
+    */
+
+    /* Method 3: Post order using Hash */
+
+    string tree2str(TreeNode* root) 
+    {
+        if(root == NULL)
+            return "";
+
+        string result;        
+        unordered_set<TreeNode *> hash;
+        stack<TreeNode *> st;
+        st.push(root);
+
+        while(!st.empty()) {
+            TreeNode *current = st.top();
+           
+            if(hash.find(current) != hash.end()) {
+                result = result + ")";
+                st.pop();
+            } else {
+                hash.insert(current);
+                result = result + "(" + to_string(current->val);
+
+                if(current->left == NULL && current->right != NULL) {
+                    result = result + "()";
+                }
+
+                if(current->right)
+                    st.push(current->right);
+                if(current->left)
+                    st.push(current->left);
             }
         }
 
