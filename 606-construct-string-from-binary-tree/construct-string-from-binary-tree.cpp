@@ -11,6 +11,9 @@
  */
 class Solution {
 public:
+
+    /* Method 1: Using Post order serialization 
+
     string tree2str(TreeNode* root) 
     {
         if(root == NULL)
@@ -32,4 +35,41 @@ public:
 
         return current;
     }
+
+    */
+
+
+    string tree2str(TreeNode* root) 
+    {
+        if(root == NULL)
+            return "";
+
+        string result;
+        stack<TreeNode *> st;
+        TreeNode *current = root, *prev = NULL;
+
+        while(current || !st.empty()) {
+            if(current) {
+                st.push(current);
+                result = result + "(" + to_string(current->val);
+                current = current->left;
+            } else {
+                TreeNode *traverse = st.top();
+
+                if(st.top()->right && st.top()->right != prev) {
+                    if (st.top()->left == NULL) {
+                        result += "()";  
+                    }
+                    current = st.top()->right;
+                } else {
+                    prev = st.top();
+                    st.pop();
+                    result = result + ")";
+                }
+            }
+        }
+
+        return result.substr(1, result.size() - 2);
+    }
+
 };
