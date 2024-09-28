@@ -38,6 +38,7 @@ public:
 
     */
 
+    /*Method 2: Post order Iteration method. */
 
     string tree2str(TreeNode* root) 
     {
