@@ -172,6 +172,7 @@ public:
 
     */
 
+    /* Method 6: One more way, need a better understanding*/
 
     vector<int> postorderTraversal(TreeNode* root) 
     {
