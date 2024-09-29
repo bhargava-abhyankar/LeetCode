@@ -67,7 +67,7 @@ public:
 
     */
 
-    /* Method 3: Using iteration */
+    /* Method 3: Using iteration 
 
     TreeNode* convertBST(TreeNode* root) 
     {
@@ -93,5 +93,46 @@ public:
 
         return root;
     }
+
+    */
+
+    /* Method 4: Using Morris Traversal */
+
+    TreeNode* convertBST(TreeNode* root) 
+    {
+        int sum = 0;
+
+        if(!root)
+            return 0;
+
+        TreeNode *current = root;
+
+        while(current) {
+
+            if(current->right == NULL) {
+                sum = sum + current->val;
+                current->val = sum;
+                current = current->left;
+            } else {
+                TreeNode *traverse = current->right;
+
+                while(traverse->left && traverse->left != current) {
+                    traverse = traverse->left;
+                }
+
+                if(traverse->left == NULL) {
+                    traverse->left = current;
+                    current = current->right;
+                } else {
+                    traverse->left = NULL;
+                    sum = sum + current->val;
+                    current->val = sum;
+                    current = current->left;
+                }
+            }
+        }
+
+        return root;        
+    }  
 
 };
