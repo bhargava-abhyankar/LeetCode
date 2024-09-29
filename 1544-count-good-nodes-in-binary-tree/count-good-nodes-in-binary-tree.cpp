@@ -37,7 +37,7 @@ public:
 
     */
 
-    /* Method 2: Using pre order iteration */
+    /* Method 2: Using pre order iteration
 
     int goodNodes(TreeNode* root) 
     {
@@ -71,4 +71,38 @@ public:
         return count;
     }
 
+    */
+
+    /*Method 3: Using BFS. */
+
+    int goodNodes(TreeNode* root) 
+    {
+        if(root == NULL)
+            return 0;
+
+        int count = 0;
+        queue<pair<TreeNode *, int>> q;
+        q.push({root, INT_MIN});
+
+        while(!q.empty()) {
+            int size = q.size();
+
+            for(int i = 0; i < size; i++) {
+                TreeNode *cur = q.front().first;
+                int max_till_now = q.front().second;
+                q.pop();
+
+                if(cur->val >= max_till_now) {
+                    count++;
+                    max_till_now = cur->val;
+                }
+
+                if(cur->left)
+                    q.push({cur->left, max_till_now});
+                if(cur->right)
+                    q.push({cur->right, max_till_now});
+            }
+        }
+        return count;
+    }
 };
