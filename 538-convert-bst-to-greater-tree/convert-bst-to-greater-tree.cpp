@@ -46,7 +46,7 @@ public:
 
     */
 
-    /* Method 2: Reverse inorder using recursion */
+    /* Method 2: Reverse inorder using recursion.
 
     void reverse_inorder(TreeNode *cur, int &sum)
     {   
@@ -62,6 +62,35 @@ public:
     {
         int sum = 0;
         reverse_inorder(root, sum);
+        return root;
+    }
+
+    */
+
+    /* Method 3: Using iteration */
+
+    TreeNode* convertBST(TreeNode* root) 
+    {
+        if(root == NULL)
+            return NULL;
+        
+        int sum = 0;
+        stack<TreeNode *> st;
+        TreeNode *current = root;
+
+        while(current || !st.empty()) {
+            while(current) {
+                st.push(current);
+                current = current->right;
+            }
+
+            current = st.top();
+            st.pop();
+            sum = sum + current->val;
+            current->val = sum;
+            current = current->left;
+        }
+
         return root;
     }
 
