@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1: My method. Inefficient, but first intution 
+
     void rec_preorder_for_sum(TreeNode *cur, int &sum)
     {
         if(cur == NULL)
@@ -41,4 +43,26 @@ public:
         rec_inorder(root, sum, prev);
         return root;
     }
+
+    */
+
+    /* Method 2: Reverse inorder using recursion */
+
+    void reverse_inorder(TreeNode *cur, int &sum)
+    {   
+        if(cur == NULL)
+            return;
+        reverse_inorder(cur->right, sum);
+        sum += cur->val;
+        cur->val = sum;
+        reverse_inorder(cur->left, sum);
+    }
+
+    TreeNode* convertBST(TreeNode* root) 
+    {
+        int sum = 0;
+        reverse_inorder(root, sum);
+        return root;
+    }
+
 };
