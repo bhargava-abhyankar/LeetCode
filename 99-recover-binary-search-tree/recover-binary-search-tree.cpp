@@ -13,61 +13,33 @@ class Solution {
 public:
 
 
+/* Template for sorting almost sorted Array where Two Elements Are Swapped 
 
-/*
-
-TreeNode* recover_using_inorder(struct TreeNode *root, struct TreeNode *node)
+void findTwoSwapped(vector<int> &nums)
 {
-    if(node == NULL)
-        return root;
+    int x = -1, y = -1;
+    bool isFirstOccurance = false;
 
-    recover_using_inorder(root, node->left);
+    for(int i = 0; i < nums.size()-1; i++) {
 
-    if (prev && (prev->val > node->val))
-    {
-        if(first == NULL)
-        {
-            first = prev;
-            mid = node;
+        y = i+1;
+        if(nums[i] > nums[i+1]) {
+            if(isFirstOccurance == false) {
+                x = i;
+            } else {
+                break;
+            }
         }
-        else if (last == NULL)
-        {
-            last = node;
-        }
-    }   
-    prev = node;
-
-    recover_using_inorder(root, node->right);
-    return root;
-}
-
-void recoverTree(TreeNode* root)
-{
-    root = recover_using_inorder(root, root);
-    int temp;
- 
-    if(first && last)
-    {
-        temp = first->val;
-        first->val = last->val;
-        last->val = temp;
-    } else if (first && mid)
-    {
-        temp = first->val;
-        first->val = mid->val;
-        mid->val = temp;         
     }
-}
 
-struct TreeNode *first = NULL;
-struct TreeNode *mid = NULL;
-struct TreeNode *last = NULL;
-struct TreeNode *prev = NULL;
+    int temp = nums[x];
+    nums[x] = nums[y];
+    nums[y] = temp;
+}
 
 */
 
-
-/* Method 1: Using inorder recursion */
+/* Method 1: Using inorder recursion 
 
 void inorder_rec(TreeNode* cur, TreeNode *&x, TreeNode *&y, TreeNode *&prev)
 {
@@ -98,5 +70,44 @@ void recoverTree(TreeNode* root)
     x->val = y->val;
     y->val = temp;
 }
+
+*/
+
+/* Method 2: Using Inorder iteration */
+
+void recoverTree(TreeNode* root)
+{
+
+    TreeNode *x = NULL, *y = NULL, *prev = NULL, *current = root;
+    stack<TreeNode *> st;
+
+    while(current || !st.empty()) {
+        while(current) {
+            st.push(current);
+            current = current->left;
+        }
+    
+        current = st.top();
+        st.pop();
+    
+        if(prev && prev->val > current->val) {
+            y = current;
+
+            if(x == NULL)
+                x = prev;
+            else
+                break;
+        }
+
+        prev = current;
+        current = current->right;
+    }
+
+    int temp = x->val;
+    x->val = y->val;
+    y->val = temp;
+
+}
+
 
 };
