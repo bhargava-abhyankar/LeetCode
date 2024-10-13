@@ -73,11 +73,10 @@ void recoverTree(TreeNode* root)
 
 */
 
-/* Method 2: Using Inorder iteration */
+/* Method 2: Using Inorder iteration
 
 void recoverTree(TreeNode* root)
 {
-
     TreeNode *x = NULL, *y = NULL, *prev = NULL, *current = root;
     stack<TreeNode *> st;
 
@@ -106,7 +105,58 @@ void recoverTree(TreeNode* root)
     int temp = x->val;
     x->val = y->val;
     y->val = temp;
+}
 
+*/
+
+/* Method 3: Using Morris Inorder traversal */
+
+void recoverTree(TreeNode* root)
+{
+    TreeNode *x = NULL, *y = NULL, *prev = NULL, *current = root;
+
+    while(current) {
+        
+        if(current->left == NULL) {
+            if(prev && prev->val > current->val) {
+                y = current;
+                if(x == NULL) {
+                    x = prev;
+                }
+            }
+
+            prev = current;
+            current = current->right;
+
+        } else {
+            TreeNode *traverse = current->left;
+
+            while(traverse->right && traverse->right != current) {
+                traverse = traverse->right;
+            }
+
+            if(traverse->right == NULL) {
+                traverse->right = current;
+                current = current->left;
+            } else {
+                traverse->right = NULL;
+
+                if(prev && prev->val > current->val) {
+                    y = current;
+                    if(x == NULL) {
+                        x = prev;
+                    }
+                }
+
+                prev = current;
+                current = current->right;
+            }
+        }
+    }
+
+    int temp = x->val;
+    x->val = y->val;
+    y->val = temp;
 }
 
 
