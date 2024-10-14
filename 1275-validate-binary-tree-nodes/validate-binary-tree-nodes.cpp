@@ -144,6 +144,8 @@ public:
 
     */
 
+    /* Method 3: Using BFS
+
     int find_root(int n, vector<int>& leftChild, vector<int>& rightChild)
     {
         unordered_set<int> hash;
@@ -210,6 +212,61 @@ public:
                 return false;
         }
 
+        return true;
+    }
+
+    */
+
+
+    /* Method 4: Using Union Find */
+
+    vector<int> parent;
+
+    int find(int x)
+    {
+        if(parent[x] == x)
+            return x;
+        
+        return parent[x] = find(parent[x]);
+    }
+
+    bool Union(int p, int child, int &components)
+    {
+        if(find(child) != child)
+            return false;
+        
+        if(find(p) == child)
+            return false;
+        
+        parent[child] = p;
+        components--;
+        return true;
+    }
+
+    bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) 
+    {
+        int components = n;
+        parent.resize(n);
+
+        for(int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+
+        for(int i = 0; i < n; i++) {
+            if(leftChild[i] != -1) {
+                if(Union(i, leftChild[i], components) == false)
+                    return false;
+            }
+
+            if(rightChild[i] != -1) {
+                if(Union(i, rightChild[i], components) == false)
+                    return false;
+            }
+        }
+
+        if(components > 1)
+            return false;
+        
         return true;
     }
 
