@@ -13,10 +13,6 @@ public:
     int find_root(int n, vector<int>& leftChild, vector<int>& rightChild)
     {
         unordered_set<int> hash;
-        /*
-        hash.insert(leftChild.begin(), leftChild.end());
-        hash.insert(rightChild.begin(), rightChild.end());
-        */
 
         for (int i = 0; i < n; i++) {
             if (leftChild[i] != -1) hash.insert(leftChild[i]);
