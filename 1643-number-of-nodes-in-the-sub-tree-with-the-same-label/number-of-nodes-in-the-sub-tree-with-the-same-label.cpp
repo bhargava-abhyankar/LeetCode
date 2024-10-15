@@ -6,7 +6,6 @@ public:
     vector<int> dfs(vector<vector<int>> &adj, int i, int parent, string &labels, vector<int> &ans)
     {
         vector<int> cur_node_counts(26);
-        cur_node_counts[labels[i] - 'a'] = 1;
 
         for(int j = 0; j < adj[i].size(); j++) {
             int x = adj[i][j];
@@ -20,6 +19,8 @@ public:
                 cur_node_counts[i] = cur_node_counts[i] + child_count[i];
             }
         }
+        
+        cur_node_counts[labels[i] - 'a'] = cur_node_counts[labels[i] - 'a'] + 1;
 
         ans[i] = cur_node_counts[labels[i] - 'a'];
         return cur_node_counts;
