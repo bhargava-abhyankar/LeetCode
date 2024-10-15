@@ -2,21 +2,20 @@ class Solution {
 public:
 
     int dfs(vector<vector<int>> &adj, int i, int parent, vector<bool>& hasApple)
-    {
-        int time_from_child = 0;
+    {        
         int time = 0;
 
         for(int j = 0; j < adj[i].size(); j++) {
             int x = adj[i][j];
 
-            if(x == parent) 
+            if(x == parent)
                 continue;
-            time_from_child = dfs(adj, x, i, hasApple);
-            
 
-            if (time_from_child > 0 || hasApple[x] == true) {
+            int time_from_child = dfs(adj, x, i, hasApple);
+
+            if(time_from_child > 0 || hasApple[x] == true) {
                 time = time + time_from_child + 2;
-            } 
+            }
         }
         return time;
     }
@@ -24,7 +23,7 @@ public:
     int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) 
     {
         vector<vector<int>> adj(n);
-        vector<bool>is_vis(n, false);
+        
 
         for(int i = 0; i < edges.size(); i++) {
             adj[edges[i][0]].push_back(edges[i][1]);
@@ -33,6 +32,6 @@ public:
 
         int ans = dfs(adj, 0, -1, hasApple);
         return ans;
-        
     }
+
 };
