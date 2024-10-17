@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /* Method 1: Using recursion */
+    /* Method 1: Using recursion . This is also O(n)
 
     bool flipEquiv(TreeNode* root1, TreeNode* root2) 
     {
@@ -25,6 +25,7 @@ public:
                 (flipEquiv(root1->left, root2->right) && flipEquiv(root1->right, root2->left)));
     }
 
+    */
 
     /* Method 2: Using BFS. This is optimized solution with O(n) time complexity.
 
@@ -78,4 +79,45 @@ public:
     }
 
     */
+
+    /* Method 3: Using Canonical representation */
+
+    void canonical(TreeNode* cur, vector<int> &tree)
+    {
+        if(cur) {
+            tree.push_back(cur->val);
+
+            int left = cur->left != NULL ? cur->left->val : -1;
+            int right = cur->right != NULL ? cur->right->val: -1;
+
+            if(left < right)  {
+                canonical(cur->left, tree);
+                canonical(cur->right, tree);
+            } else {
+                canonical(cur->right, tree);
+                canonical(cur->left, tree);
+            }
+            tree.push_back(0);
+        }
+    }
+
+    bool flipEquiv(TreeNode* root1, TreeNode* root2) 
+    {
+        vector<int> tree1;
+        vector<int> tree2;
+
+        canonical(root1, tree1);
+        canonical(root2, tree2);
+        
+        if(tree1.size() != tree2.size())
+            return false;
+        
+        for(int i = 0; i < tree1.size(); i++) {
+            if(tree1[i] != tree2[i])
+                return false;
+        }
+
+        return true;
+    }
+
 };
