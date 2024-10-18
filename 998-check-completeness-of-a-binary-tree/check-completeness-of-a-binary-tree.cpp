@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1: Using DFS 
+
     int count_nodes(TreeNode *cur)
     {
         if(cur == NULL)
@@ -36,5 +38,39 @@ public:
         int n = count_nodes(root);
 
         return dfs(root, 0, n);    
+    }
+
+    */
+
+    /* Method 2: Using BFS */
+
+    bool isCompleteTree(TreeNode* root) 
+    {
+        if(root == NULL)
+            return true;
+        
+        queue<TreeNode *> q;
+        q.push(root);
+        bool isNullfound = false;
+
+        while(!q.empty()) {
+            int size = q.size();
+
+            for(int i = 0; i < size; i++) {
+                TreeNode *cur = q.front();
+                q.pop();
+
+                if(cur == NULL) {
+                    isNullfound = true;
+                } else {
+                    if(isNullfound == true)
+                        return false;
+                    
+                    q.push(cur->left);
+                    q.push(cur->right);
+                }
+            }
+        }
+        return true;
     }
 };
