@@ -12,6 +12,8 @@
 class Solution {
 public:
 
+    /* Method 1: Using recursive Inorder 
+
     void inorder_recursion(TreeNode *cur, int &k, int &ans)
     {
         if(cur == NULL)
@@ -29,5 +31,33 @@ public:
         int ans = -1;
         inorder_recursion(root, k, ans);
         return ans;    
+    }
+
+    */
+
+    /* Method 2: Using iterative inorder */
+
+    int kthSmallest(TreeNode* root, int k) 
+    {
+        if(root == NULL)
+            return 0;
+        
+        stack<TreeNode *> st;
+        TreeNode *current = root;
+
+        while(current || !st.empty()) {
+            while(current) {
+                st.push(current);
+                current = current->left;
+            }
+            current = st.top();
+            st.pop();
+            k--;
+            if(k == 0)
+                return current->val;
+            current = current->right;
+        }
+
+        return 0;
     }
 };
