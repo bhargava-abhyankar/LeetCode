@@ -66,7 +66,7 @@ public:
 
     */
 
-    /* Method 2: Two queues. Push O(n) and Pop is O(1) */
+    /* Method 2: Two queues. Push O(n) and Pop is O(1) 
 
     queue<int> q1;
     queue<int> q2;
@@ -113,6 +113,50 @@ public:
         return q1.empty();
     }
 
+    */
+
+    /* Method 3: Using Single Queue. Push O(n) and Pop O(1) */
+
+    queue<int> q;
+
+    MyStack() 
+    {
+        
+    }
+    
+    void push(int x) 
+    {
+        q.push(x);
+        int size = q.size();
+
+        for(int i = 0; i < size-1; i++) {
+            q.push(q.front());
+            q.pop();
+        }
+    }
+    
+    int pop() 
+    {
+        if(q.empty())
+            return -1;
+        
+        int top_element = q.front();
+        q.pop();
+        return top_element;    
+    }
+    
+    int top() 
+    {
+        if(q.empty())
+            return -1;
+        
+        return q.front();
+    }
+    
+    bool empty() 
+    {
+        return q.empty();
+    }
 
 };
 
