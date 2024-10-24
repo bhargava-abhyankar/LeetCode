@@ -1,7 +1,7 @@
 class MyStack {
 public:
 
-    /*Approach 1: Two queues. push O(1) and pop O(n) */
+    /* Method 1: Two queues. push O(1) and pop O(n) 
 
     queue<int> q1;
     queue<int> q2;
@@ -63,6 +63,57 @@ public:
 
         return false;    
     }
+
+    */
+
+    /* Method 2: Two queues. Push O(n) and Pop is O(1) */
+
+    queue<int> q1;
+    queue<int> q2;
+
+    MyStack() 
+    {
+        
+    }
+    
+    void push(int x) 
+    {
+        q2.push(x);
+
+        while(!q1.empty()) {
+            q2.push(q1.front());
+            q1.pop();
+        }
+
+        queue<int> temp = q1;
+        q1 = q2;
+        q2 = temp;
+    }
+    
+    int pop() 
+    {
+        if(q1.empty())
+            return -1;
+
+        int top_element = q1.front();
+        q1.pop();
+        return top_element;   
+    }
+    
+    int top() 
+    {
+        if(q1.empty())
+            return -1;
+        
+        return q1.front();
+    }
+    
+    bool empty() 
+    {
+        return q1.empty();
+    }
+
+
 };
 
 /**
