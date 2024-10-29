@@ -1,6 +1,8 @@
 class MinStack {
 public:
 
+    /* Method 1: Maintaining min in each element
+
     stack<pair<int, int>> st;
 
     MinStack() {
@@ -30,6 +32,40 @@ public:
     
     int getMin() {
         return st.top().second;
+    }
+
+    */
+
+    /* Method 2: Using two stacks */
+
+    stack<int> regular_stack;
+    stack<int> min_stack;
+
+    MinStack() {
+        
+    }
+    
+    void push(int val) 
+    {
+        if(min_stack.empty() || val <= min_stack.top())
+            min_stack.push(val);
+
+        regular_stack.push(val);
+    }
+    
+    void pop() {
+        if(regular_stack.top() == min_stack.top())
+            min_stack.pop();
+
+        regular_stack.pop();
+    }
+    
+    int top() {
+        return regular_stack.top();
+    }
+    
+    int getMin() {
+        return min_stack.top();
     }
 };
 
