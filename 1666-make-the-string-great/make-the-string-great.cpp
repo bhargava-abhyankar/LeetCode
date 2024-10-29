@@ -48,6 +48,7 @@ public:
 
     /* Method 3: Using stack */
 
+    /*
     string makeGood(string s)
     {
         string ans;
@@ -65,9 +66,25 @@ public:
             ans.push_back(st.top());
             st.pop();
         }
-        
+
         reverse(ans.begin(), ans.end());
         return ans; 
+    }
+    */
+
+    string makeGood(string s)
+    {
+        string ans;
+
+        for(int i = 0; i < s.length(); i++) {
+            if(ans.size() > 0 && abs(ans.back() - s[i]) == 32) {
+                ans.pop_back();
+            } else {
+                ans.push_back(s[i]);
+            }
+        }
+        
+        return ans;
     }
 
 };
