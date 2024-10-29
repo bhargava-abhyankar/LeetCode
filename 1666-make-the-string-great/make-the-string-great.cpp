@@ -2,10 +2,10 @@ class Solution {
 public:
 
     /* Method 1: Simple Brute force */
-    
+
     string makeGood(string s) 
     {
-        while(s.length() > 1) {
+        while(s.length()) {
 
             bool is_pair_found = false;
 
@@ -23,4 +23,13 @@ public:
 
         return s; 
     }
+
+    /* Method 2: Using Recursion 
+
+    string makeGood(string s)
+    {
+       
+    }
+
+    */
 };
