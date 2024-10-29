@@ -36,7 +36,7 @@ public:
 
     */
 
-    /* Method 2: Using two stacks */
+    /* Method 2: Using two stacks 
 
     stack<int> regular_stack;
     stack<int> min_stack;
@@ -66,6 +66,45 @@ public:
     
     int getMin() {
         return min_stack.top();
+    }
+
+    */
+
+    /* Method 3: Improvisation to two stack method */
+
+    stack<int> regular_stack;
+    stack<pair<int, int>> min_stack; 
+
+    MinStack() {
+        
+    }
+    
+    void push(int val) 
+    {
+        if(min_stack.empty() || val < min_stack.top().first)
+            min_stack.push({val, 1});
+        else if (val == min_stack.top().first)
+            min_stack.top().second++;
+
+        regular_stack.push(val);
+    }
+    
+    void pop() {
+        if(min_stack.top().first == regular_stack.top())
+            min_stack.top().second--;
+
+        if(min_stack.top().second == 0)
+            min_stack.pop();
+        
+        regular_stack.pop();
+    }
+    
+    int top() {
+        return regular_stack.top();
+    }
+    
+    int getMin() {
+        return min_stack.top().first;
     }
 };
 
