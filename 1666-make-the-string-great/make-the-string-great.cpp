@@ -72,6 +72,7 @@ public:
     }
     */
 
+    /*
     string makeGood(string s)
     {
         string ans;
@@ -83,8 +84,27 @@ public:
                 ans.push_back(s[i]);
             }
         }
-        
+
         return ans;
     }
 
+    */
+
+    /*Method 4: Two pointer. But same above stack kind of idea */
+
+    string makeGood(string s)
+    {
+        int j = 0;
+
+        for(int i = 0; i < s.length(); i++) {
+            if(j > 0 && abs(s[i] - s[j-1]) == 32) {
+                j--;
+            } else {
+                s[j] = s[i];
+                j++;
+            }
+        }
+
+        return s.substr(0, j);
+    }
 };
