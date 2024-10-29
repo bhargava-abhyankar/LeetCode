@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    /* Method 1: Simple Brute force
+    /* Method 1: Simple Brute force. Time complexity O(n2)
 
     string makeGood(string s) 
     {
@@ -26,7 +26,7 @@ public:
 
     */
 
-    /* Method 2: Using Recursion */
+    /* Method 2: Using Recursion 
 
     string makeGood(string s)
     {
@@ -44,5 +44,30 @@ public:
         return s;
     }
 
-    
+    */
+
+    /* Method 3: Using stack */
+
+    string makeGood(string s)
+    {
+        string ans;
+        stack<char> st;
+
+        for(int i = 0; i < s.length(); i++) {
+            if(!st.empty() && abs(st.top() - s[i]) == 32) {
+                st.pop();
+            } else {
+                st.push(s[i]);
+            }
+        }
+
+        while(!st.empty()) {
+            ans.push_back(st.top());
+            st.pop();
+        }
+        
+        reverse(ans.begin(), ans.end());
+        return ans; 
+    }
+
 };
