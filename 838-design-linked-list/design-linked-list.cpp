@@ -44,7 +44,6 @@ public:
     }
 
     int get(int index) {
-        if (index < 0 || index >= size) return -1;
 
         MyListNode* current = getNodeFromIndex(index);
         return (current ? current->val: -1);
