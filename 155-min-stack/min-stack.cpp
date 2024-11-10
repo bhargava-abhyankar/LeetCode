@@ -106,6 +106,61 @@ public:
     int getMin() {
         return min_stack.top().first;
     }
+
+
+    /* This is the implementation of min queue. the question is not in leetcode. 
+       So comminting as part of this question 
+
+    class MinQueue {
+
+    private:
+        queue<int> mainQueue;  // Stores all elements in queue order
+        deque<int> minQueue;   // Stores minimum elements in non-decreasing order
+
+    public:
+        
+        void enqueue(int x) {
+            mainQueue.push(x);
+
+            while (!minQueue.empty() && minQueue.back() > x) {
+                minQueue.pop_back();
+            }
+
+            minQueue.push_back(x);
+        }
+
+        void dequeue() {
+            if (mainQueue.empty()) {
+                return;
+            }
+
+            if (mainQueue.front() == minQueue.front()) {
+                minQueue.pop_front();
+            }
+
+            mainQueue.pop();
+        }
+
+        int front() {
+            if (mainQueue.empty()) {    
+                return -1;
+            }
+            return mainQueue.front();
+        }
+
+        int getMin() {
+            if (minQueue.empty()) { 
+                return -1;
+
+            return minQueue.front();
+        }
+
+        bool isEmpty() {
+            return mainQueue.empty();
+        }
+    };
+
+    */
 };
 
 /**
