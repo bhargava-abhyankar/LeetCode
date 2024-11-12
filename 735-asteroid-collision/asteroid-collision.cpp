@@ -24,9 +24,7 @@ public:
         We have to take care of the case when s.top() == asteroids[i]. In this case one positive element 
         will pop out and negative asteroid won't enter the stack.
         If after knocking out elements stack becomes empty() or s.top() becomes negative, 
-        that means the current asteroids[i] will enter the stack.
-    
-     */
+        that means the current asteroids[i] will enter the stack. 
 
     vector<int> asteroidCollision(vector<int>& asteroids) 
     {
@@ -59,6 +57,40 @@ public:
         }
 
         return ans;
+    }
+
+    */
+
+    /* Two pointer/ in place replacement. Same above logic just using given array as stack */
+
+    vector<int> asteroidCollision(vector<int>& asteroids) 
+    {
+        int j = 0;
+
+        for(int i = 0; i < asteroids.size(); i++) {
+
+            if(j == 0 || asteroids[i] > 0) {
+                asteroids[j] = asteroids[i];
+                j++;
+            } else {
+
+                while(j > 0 && asteroids[j-1] > 0 && asteroids[j-1] < abs(asteroids[i])) {
+                    j--;
+                }
+
+                if(j > 0 && asteroids[j-1] == abs(asteroids[i])) {
+                    j--;
+                } else {
+                    if(j == 0 || asteroids[j-1] < 0) {
+                        asteroids[j] = asteroids[i];
+                        j++;    
+                    }
+                }
+            }
+        }
+
+        vector<int> result(asteroids.begin(), asteroids.begin() + j);
+        return result;
     }
 
 };
