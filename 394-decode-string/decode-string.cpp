@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    /* Method 1: two stack method */
+    /* Method 1: two stack method 
 
     string decodeString(string s) 
     {
@@ -25,6 +25,8 @@ public:
                 int count = st_num.top();
                 st_num.pop();
 
+                // Most difficult piece to understand 
+
                 while(count) {
                     prev = prev + cur;
                     count--;
@@ -39,4 +41,50 @@ public:
 
         return cur;
     }
+
+    */
+
+    /* method 2: Using recursion */
+
+    string recursive_decode(string &s, int &cur_index)
+    {
+        string ans = "";
+        int num = 0;
+
+        while(cur_index < s.length() && s[cur_index] != ']') {
+            if(s[cur_index] >= 48 && s[cur_index] <= 57) {
+                while(cur_index < s.length() &&  s[cur_index] >= 48 && s[cur_index] <= 57) {
+                    num = num * 10 + s[cur_index] - 48;
+                    cur_index++;
+                }
+
+                cur_index++; //incrementing '['
+
+                string prev = recursive_decode(s, cur_index);
+
+                while(num > 0) {
+                    ans = ans + prev;
+                    num--;
+                }
+
+                cur_index++; //incrementing ']' 
+
+            } else {
+                ans = ans + s[cur_index];
+                cur_index++;
+            }
+        }
+
+        return ans;
+
+        
+    }
+
+    string decodeString(string s) 
+    {
+        int index = 0;
+        string ans = recursive_decode(s, index);
+        return ans;
+    }
+
 };
