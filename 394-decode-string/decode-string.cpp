@@ -44,7 +44,7 @@ public:
 
     */
 
-    /* method 2: Using recursion */
+    /* method 2: Using recursion
 
     string recursive_decode(string &s, int &cur_index)
     {
@@ -76,8 +76,6 @@ public:
         }
 
         return ans;
-
-        
     }
 
     string decodeString(string s) 
@@ -87,4 +85,53 @@ public:
         return ans;
     }
 
+    */
+
+    /* Method 3: Single stack */
+
+    string decodeString(string s) 
+    {
+        int count = 0;
+        string ans;
+        stack<char> st;
+
+        for(int i = 0; i < s.length(); i++) {
+            if(s[i] == ']') {
+                string cur = "";
+                int base = 1;
+                
+                while(!st.empty() && st.top() != '[') {
+                    cur = st.top() + cur;
+                    st.pop();
+                }
+
+                st.pop();
+
+                while(!st.empty() && st.top() >= 48 && st.top() <= 57) {
+                    count = count  + base * (st.top() - 48);
+                    base = base * 10;
+                    st.pop();
+                }
+
+
+
+                while(count > 0) {
+                    for(int i = 0; i < cur.length() ; i++) {
+                        st.push(cur[i]);
+                    }
+
+                    count--;
+                }
+            } else {
+                st.push(s[i]);
+            }
+        }
+
+        while(!st.empty()) {
+            ans = st.top() + ans;
+            st.pop();
+        }
+
+        return ans;
+    }
 };
