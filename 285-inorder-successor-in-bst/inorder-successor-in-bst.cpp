@@ -10,6 +10,9 @@
 class Solution {
 public:
 
+
+    /* Method 1: Inorder succesor of binary tree 
+
     void find_inorder_successor(TreeNode* cur, TreeNode* p, TreeNode *&ans, bool &is_found)
     {
         if(cur == NULL)
@@ -35,4 +38,26 @@ public:
         find_inorder_successor(root, p, ans, is_found);
         return ans;
     }
+
+    */
+
+    /* Method 2: Inorder succesor of binary search tree */
+
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) 
+    {
+        TreeNode *ans = NULL, *cur = root;
+
+        while(cur) {
+            if(cur->val <= p->val) {
+                cur = cur->right;
+            } else {
+                ans = cur;
+                cur = cur->left;
+            }
+        }
+
+        return ans;
+    }
+
+
 };
