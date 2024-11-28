@@ -1,7 +1,7 @@
 class KthLargest {
 public:
 
-    /* Method 1: By maintaining sorted list */
+    /* Method 1: By maintaining sorted list.
 
     int size;
     vector<int> stream;
@@ -42,6 +42,41 @@ public:
 
         return start;
     }
+
+    */
+
+
+    /* Method 2: Using heap or min queue */
+
+    int size;
+    vector<int> stream; // this is just to maintain the order. there could be some followup so.
+    priority_queue<int, vector<int>, greater<int>> min_heap;
+
+    KthLargest(int k, vector<int>& nums) 
+    {
+        size = k;
+
+        for(int i = 0; i < nums.size(); i++) {
+            stream.push_back(nums[i]);
+            add(nums[i]);
+        }
+    }
+    
+    int add(int val) 
+    {
+        if(min_heap.size() < size) {
+            min_heap.push(val);
+        } else {
+            if(min_heap.top() < val) {
+                min_heap.pop();
+                min_heap.push(val);
+            }
+        }
+
+        stream.push_back(val);
+        return min_heap.top();
+    }
+
 };
 
 /**
