@@ -1,51 +1,58 @@
 class Solution {
 public:
 
+    /* Method 1: Using priority queue */
+
+
     string repeatLimitedString(string s, int repeatLimit) 
     {
-        string ans;
-        vector<int> hash(26, 0);
-        priority_queue<pair<char, int>> max_queue;
+	    string ans;
+	    vector<int> count(26, 0);
+	    priority_queue<pair<char, int>> pq;
+	
+	    for(int i = 0; i < s.length(); i++) {
+		    int index = s[i] - 'a';
+		    count[index]++;
+	    }
 
-        for(int i = 0; i < s.length(); i++) {
-            int index = s[i] - 'a';
-            hash[index]++;
-        }
-    
-        for (int i = 0; i < 26; i++) {
-            if (hash[i] > 0) {
-                max_queue.push({i + 'a', hash[i]});
-            }
-        }
+	    for(int i = 0; i < 26; i++) {
+            if(count[i])
+		        pq.push({i + 'a', count[i]});
+	    }
 
-        while(!max_queue.empty()) {
-            int cur_freq = max_queue.top().second;
-            char cur_char = max_queue.top().first;
-            max_queue.pop();
+	    while(!pq.empty()) {
+		    char cur_char = pq.top().first;
+		    int cur_count = pq.top().second;
+		    pq.pop();
 
-            int count = min(cur_freq, repeatLimit);
-            ans.append(count, cur_char);
-            cur_freq -= count;
-            
-            if(cur_freq > 0) {
-                if(max_queue.empty())
-                    break;
-            
-                char next_char = max_queue.top().first;
-                int next_char_freq = max_queue.top().second;
-                max_queue.pop();
+            int count = min(cur_count, repeatLimit);
+        
+            for(int i = 0; i < count; i++)
+                ans.push_back(cur_char);
+        
+            cur_count -= count;
+        
+		    if(cur_count > 0) {
+			    if(pq.empty())
+				    break;
+		
+			    char next_char = pq.top().first;
+			    int next_count = pq.top().second;
+			    pq.pop();
+			
+                ans.push_back(next_char);
+			    next_count--;
 
-                ans += next_char;
-                next_char_freq--;
-
-                if(next_char_freq > 0)
-                    max_queue.push({next_char, next_char_freq});
-
-                max_queue.push({cur_char, cur_freq});
-            }
-        }
-
-        return ans;
+			    if(next_count > 0) {
+				    pq.push({next_char, next_count});
+			    }
+			
+			    pq.push({cur_char, cur_count});
+		    }
+	    }
+	
+	    return ans;
     }
+
 
 };
