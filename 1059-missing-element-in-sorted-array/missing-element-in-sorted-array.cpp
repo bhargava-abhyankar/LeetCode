@@ -1,8 +1,8 @@
 class Solution {
 public:
 
-    /* Method 1: O(n) method */
-    
+    /* Method 1: O(n) method 
+
     int missingElement(vector<int>& nums, int k) 
     {
         int n = nums.size();
@@ -19,4 +19,27 @@ public:
 
         return nums[n-1] + k;
     }
+
+    */
+
+    /* Using binary search. O(log n). This binary search is tricky.  */
+
+    int missingElement(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        int start = 0, end = n-1;
+
+        while(start < end) {
+            int mid = end - (end - start) / 2;
+
+            if(nums[mid] - nums[0] - mid < k) {
+                start = mid;
+            } else {
+                end = mid -1;
+            }
+        }
+
+        return nums[0] + k + start;
+    }
+
 };
