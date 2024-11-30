@@ -1,8 +1,7 @@
 class Solution {
 public:
 
-
-    /* Method 1: Brute force */
+    /* Method 1: Brute force O(n2)
 
     int findTheWinner(int n, int k) 
     {
@@ -21,5 +20,21 @@ public:
         }
 
         return nums[0];
+    }
+
+    */
+
+    /* Method 2: Better solution */
+
+    int findTheWinner(int n, int k) 
+    {
+        int ans = 0;
+
+        for(int i = 2; i <=n; i++) {
+            ans = (ans + k) % i;
+        }
+
+        // add 1 to convert back to 1 indexing
+        return ans + 1;
     }
 };
