@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    /* Method 1: Using formula */
+    /* Method 1: Using formula
 
     int missingNumber(vector<int>& nums) 
     {
@@ -15,4 +15,20 @@ public:
         return expected_sum - actual_sum;
 
     }
+
+    */
+
+    /* Method 2: Using bitwise */
+
+    int missingNumber(vector<int>& nums) 
+    {
+        int ans = nums.size();
+
+        for(int i = 0; i < nums.size(); i++) {
+            ans = ans ^ (nums[i] ^ i);            
+        }
+
+        return ans;
+    }
+
 };
