@@ -3,7 +3,38 @@
 
 class Solution {
 
-    /*
+    
+public:
+
+    /* Method 1: Using brute force */
+
+    bool is_celebrity(int candidate, int n)
+    {
+        for(int i = 0; i <n; i++) {
+            if(i == candidate) {
+                continue;
+            }
+
+            if(knows(candidate, i) || !knows(i, candidate))
+                return false;
+        }
+
+        return true;
+    }
+
+    int findCelebrity(int n) 
+    {
+        for(int i = 0; i < n; i++) {
+            if(is_celebrity(i, n)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    /*  Method 2: 
+    
         knows(int a, int b) has two outcomes:
         true: a knows b, so a is not celebrity, b is the candidate
         false: a doesn't know b, so b can't be the celebrity, then a is the candidate.
@@ -11,10 +42,7 @@ class Solution {
         Then we do another pass to check if everyone else know the candidate, and the candidate knows nobody else.
     
         This approach will do within 3*n knows calls
-    */
 
-public:
-    
     int findCelebrity(int n) 
     {
         int candidate = 0;      //taking first element
@@ -40,4 +68,6 @@ public:
 
         return candidate;  
     }
+
+    */
 };
