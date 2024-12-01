@@ -10,6 +10,8 @@
  */
 class Solution {
 public:
+
+    /*
     ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) 
     {
         int count = 0;
@@ -46,4 +48,34 @@ public:
         delete dummy;
         return head;
     }
+    */
+
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2)
+{
+	ListNode *dummy = new ListNode(-1, list1), *traverse = dummy;
+	
+	for(int i = 0; i < a; i++) {
+		traverse = traverse->next;
+	}
+	
+	ListNode *remaining = traverse->next;
+	traverse->next = list2;
+	
+	while(traverse->next) {
+		traverse = traverse->next;
+	}
+
+	ListNode *traverse2 = remaining;
+	for(int i = a; i <=b; i++) {
+		ListNode *temp = traverse2;
+		traverse2 = traverse2->next;
+		delete temp;
+	}
+	
+	traverse->next = traverse2;
+	list1 = dummy->next;
+	delete dummy;
+	return list1;
+}
+
 };
