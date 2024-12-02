@@ -45,7 +45,7 @@ public:
 
     */
 
-    /* Method 2: Using Iteration */
+    /* Method 2: Using Iteration 
 
     struct NodeInfo {
         TreeNode *parent;
@@ -73,7 +73,6 @@ public:
         pre_order_index++;
         st.push({root, mid+1, end, false});  
         st.push({root, start, mid-1, true});
-          
 
         while(!st.empty()) {
             struct NodeInfo info = st.top();
@@ -94,11 +93,49 @@ public:
                 info.parent->right = cur;
             
             st.push({cur, mid+1, end, false});
-            st.push({cur, start, mid-1, true});
-            
+            st.push({cur, start, mid-1, true});    
         }
 
         return root;
+    }
+
+    */
+
+    int findIndex(const vector<int>& inorder, int start, int end, int key) {
+        for (int i = start; i <= end; ++i) {
+            if (inorder[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    
+    TreeNode* buildTreeHelper(const vector<int>& preorder, const vector<int>& inorder, 
+                              int& preorderIndex, int inorderStart, int inorderEnd) 
+    {
+        if (inorderStart > inorderEnd) {
+            return NULL;
+        }
+
+        TreeNode* root = new TreeNode(preorder[preorderIndex]);
+        ++preorderIndex;
+
+        if (inorderStart == inorderEnd) {
+            return root;
+        }
+
+        int inorderIndex = findIndex(inorder, inorderStart, inorderEnd, root->val);
+        root->left = buildTreeHelper(preorder, inorder, preorderIndex, inorderStart, inorderIndex - 1);
+        root->right = buildTreeHelper(preorder, inorder, preorderIndex, inorderIndex + 1, inorderEnd);
+
+        return root;
+    }
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+
+        int preorderIndex = 0;
+        return buildTreeHelper(preorder, inorder, preorderIndex, 0, inorder.size() - 1);
     }
 
 };
