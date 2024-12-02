@@ -44,12 +44,13 @@ public:
             TreeNode *cur = s.top();
             s.pop();
 
-            if(cur->left) { s.push(cur->left); }
-            if(cur->right) { s.push(cur->right); }
-
             if(cur->left == NULL && cur->right == NULL) {
                 return cur->val;
             }
+
+            if(cur->left) { s.push(cur->left); }
+            if(cur->right) { s.push(cur->right); }
+            
         }
 
         return -1;
