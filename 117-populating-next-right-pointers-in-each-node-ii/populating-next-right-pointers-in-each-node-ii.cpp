@@ -19,7 +19,7 @@ public:
 class Solution {
 public:
 
-
+    /*
     Node* connect(Node* root) 
     {
         if(root == NULL)
@@ -50,6 +50,43 @@ public:
         }
 
         delete next_level;
+        return root;
+    }
+    */
+
+    Node* connect(Node* root) 
+    {
+        if(root == NULL) {
+            return NULL;
+        }
+
+        queue<Node *> q;
+        q.push(root);
+
+        while(!q.empty()) {
+            int size = q.size();
+            Node *prev = NULL;
+
+            for(int i = 0; i < size; i++) {
+                Node *cur = q.front();
+                q.pop();
+
+                if(prev) {
+                    prev->next = cur;
+                    prev = cur;
+                } else {
+                    prev = cur;
+                }
+                
+                if(cur->left) {
+                    q.push(cur->left);
+                }
+                if(cur->right) {
+                    q.push(cur->right);
+                }
+            }
+        }
+
         return root;
     }
 };
