@@ -19,7 +19,7 @@ public:
         if(cur == NULL)
             return;
     
-        if(ans.size() <= level) {
+        if(ans.size() == level) {
             vector<int> t;
             t.push_back(cur->val);
             ans.insert(ans.begin(), t);
