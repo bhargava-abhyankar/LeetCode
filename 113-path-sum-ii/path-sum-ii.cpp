@@ -45,6 +45,7 @@ public:
 
     */
 
+    /*
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) 
     {
         vector<vector<int>> ans;
@@ -76,5 +77,38 @@ public:
         
         return ans;
     }
+
+    */
+
+
+    void cal(TreeNode* cur, vector<vector<int>> &ans, vector<int> &cur_path, int cur_sum, int targetSum)
+{
+	if(cur == NULL)
+		return;
+	
+	cur_path.push_back(cur->val);
+	cur_sum = cur_sum + cur->val;
+	
+	if(cur->left == NULL && cur->right == NULL) {
+		if(cur_sum == targetSum) {
+			ans.push_back(cur_path);
+		}
+	}
+	
+	cal(cur->left, ans, cur_path, cur_sum, targetSum);
+	cal(cur->right, ans, cur_path, cur_sum, targetSum);
+	cur_path.pop_back();
+    
+
+}
+
+vector<vector<int>> pathSum(TreeNode* root, int targetSum)
+{
+	vector<vector<int>> ans;
+	vector<int> cur_path;
+	
+	cal(root, ans, cur_path, 0, targetSum);
+    return ans;
+}
 
 };
