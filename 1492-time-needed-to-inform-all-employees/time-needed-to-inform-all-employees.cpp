@@ -46,36 +46,6 @@ public:
     */
 
 
-    /* Method : Using DFS 
-    
-    void dfs(vector<vector<int>> &adj, int i, int cur_time, int &n, vector<int>& informTime, int &ans)
-    {
-        ans = max(ans, cur_time);
-
-        for(int j = 0; j < adj[i].size(); j++) {
-            int x = adj[i][j];
-
-            dfs(adj, x, cur_time + informTime[i], n, informTime, ans);
-        }
-    }
-
-    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) 
-    {
-        int ans = 0;
-        vector<vector<int>> adj(n);
-
-        for(int i = 0; i < manager.size(); i++) {
-            if(manager[i] != -1) {
-                adj[manager[i]].push_back(i);
-            }
-        }
-
-        dfs(adj, headID, 0, n, informTime, ans);
-        return ans;
-    }
-
-    */
-
     void dfs(vector<vector<int>> &adj, int i, int cur_time, int &n, vector<int>& informTime, int &ans)
     {
         ans = max(ans, cur_time);
