@@ -12,7 +12,7 @@
 class Solution {
 public:
 
-    /* Method 1: Using Iteration */
+    /* Method 1: Using Iteration 
 
     TreeNode* delete_the_node(TreeNode *to_delete, TreeNode *parent, TreeNode *root)
     {
@@ -70,8 +70,10 @@ public:
 
         return root;
     }
+    
+    */
 
-    /* Using recursion 
+    /* Using recursion */
 
     TreeNode* bstdelete(TreeNode *cur, TreeNode *parent, int &key)
     {
@@ -114,5 +116,4 @@ public:
         return root;
     }
 
-    */
 };
