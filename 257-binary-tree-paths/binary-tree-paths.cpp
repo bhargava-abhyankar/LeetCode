@@ -39,7 +39,7 @@ public:
 
     */
 
-    /* Method 1: Better recursion method 
+    /* Method 1: Better recursion method */
 
     void all_paths(TreeNode* cur, string cur_path, vector<string> &ans)
     {        
@@ -68,8 +68,7 @@ public:
         return ans;
     }
 
-    */
-
+    /*
     vector<string> binaryTreePaths(TreeNode* root) 
     {
         vector<string> ans;
@@ -101,5 +100,7 @@ public:
 
         return ans;
     }
+
+    */
 
 };
