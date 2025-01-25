@@ -35,7 +35,7 @@ public:
 
     */
 
-    /* Method 2: using iteration */
+    /* Method 2: using iteration 
 
     bool evaluateTree(TreeNode* root) 
     {
@@ -78,4 +78,26 @@ public:
 
         return root->val;
     }
+
+    */
+
+    bool evaluateTree(TreeNode* root)
+{
+	if(root == NULL)
+		return false;
+	
+	if(root->left == NULL && root->right == NULL) {
+		return root->val;
+	}
+	
+	bool left = evaluateTree(root->left);
+	bool right = evaluateTree(root->right);
+	
+	if(root->val == 2) {
+		return left || right; 
+	} else {
+		return left && right;
+	}
+
+}
 };
