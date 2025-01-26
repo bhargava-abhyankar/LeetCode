@@ -94,7 +94,7 @@ public:
 
     */
 
-    /* method 4: BFS. i.e level order traversal */
+    /* method 4: BFS. i.e level order traversal 
 
     int maxDepth(TreeNode* root) 
     {
@@ -124,4 +124,19 @@ public:
 
         return ans;
     }
+
+    */
+
+
+    int maxDepth(TreeNode* root)
+    {
+	    if(!root)
+		    return 0;
+	
+	    int left = maxDepth(root->left);
+	    int right = maxDepth(root->right);
+	
+	    return(1 + max(left, right));
+    }
+
 };
