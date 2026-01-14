@@ -36,36 +36,23 @@ public:
 
     vector<int> sortedSquares(vector<int>& nums) 
     {
-        int i = 0, j = 0;
-        vector<int> ans;
+        int n = nums.size();
+        vector<int> ans(n, 0);
+        int i = 0, j = n-1, index = n-1;
 
-        while(j < nums.size() && nums[j] <= 0) {
-            j++;
-        }
-        i = j -1;
-        
-        while(i >= 0 && j < nums.size()) {
-            int a = nums[i] * nums[i];
-            int b = nums[j] * nums[j];
+        while(i <= j) {
+            int x = abs(nums[i]) * abs(nums[i]);
+            int y = abs(nums[j]) * abs(nums[j]);
 
-            if(a < b) {
-                ans.push_back(a);
-                i--;
+            if(x > y) {
+                ans[index] = x;
+                index--;
+                i++;
+            } else {
+                ans[index] = y;
+                index--;
+                j--;
             }
-            else {
-                ans.push_back(b);
-                j++;
-            }
-        }
-
-        while(i >= 0) {
-            ans.push_back(nums[i] * nums[i]);
-            i--;
-        }
-
-        while(j < nums.size()) {
-            ans.push_back(nums[j] * nums[j]);
-            j++;
         }
 
         return ans;
